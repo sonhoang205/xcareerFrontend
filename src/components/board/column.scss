@@ -1,0 +1,119 @@
+.column {
+    flex: 0 0 auto;
+    width: 400px;
+    height: 650px;
+    margin-left: 30px;
+    overflow: auto;
+
+    >* {
+        background-color: #ebecf0;
+        color: #333;
+        padding: 0 8px;
+    }
+
+    .column-drag-handle {
+        display: flex;
+        padding-left: 20px;
+        height: 43px;
+        line-height: 40px;
+        font-size: 26px;
+        font-weight: bold;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        overflow: hidden;
+        align-items: center;
+
+        .title-header {
+            flex: 90%;
+            overflow: hidden;
+            overflow-x: auto;
+
+        }
+    }
+
+
+
+    footer {
+        padding-left: 70px;
+        height: 50px;
+        line-height: 32px;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+        cursor: pointer;
+    }
+
+    ul {
+        list-style-type: none;
+        margin: 0;
+        max-height: calc(100% - 40px - 40px);
+        overflow: auto;
+
+        li {
+            // background-color: rgb(241, 237, 229);
+            background-color: white;
+            padding: 10px 0;
+            border-radius: 2px;
+            margin-bottom: 10px;
+
+
+            p {
+                padding: 0 10px;
+            }
+
+            &:last-child {
+                // thuoc tinh nay ko danh cho phan tu cuoi cung
+                margin-bottom: 10px;
+            }
+
+            .card-item_header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                // border-bottom: 1px solid #ebecf0;
+                padding: 0 10px;
+                border-bottom-left-radius: 10px;
+                border-bottom-right-radius: 10px;
+
+                gap: 20px;
+
+                p {
+                    flex: 80%;
+                    font-size: 20px;
+                    overflow: hidden;
+
+                }
+
+                span {
+                    flex: 20%;
+                }
+            }
+        }
+    }
+
+    .column-drag-handle {
+        cursor: pointer;
+    }
+
+    .col-drop-preview {
+        background-color: rgba(150, 150, 200, 0.1);
+        border: 1px dashed #abc;
+        margin: 5px 45px 5px 5px;
+    }
+
+    .card-list {
+        cursor: pointer;
+
+        .card-ghost {
+            transition: transform 0.18s ease;
+            transform: rotateZ(6deg);
+            font-weight: 600;
+            color: #333;
+        }
+
+        .card-ghost-drop {
+            transition: transform 0.18s ease-in-out;
+            transform: rotateZ(0deg);
+            font-weight: 600;
+        }
+    }
+}

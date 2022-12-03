@@ -1,0 +1,23 @@
+.detail-workspace {
+    .header {
+        .heade-up {
+            h1 {
+                color: red;
+                font-size: 50px;
+                margin-top: 30px;
+                margin-bottom: 30px;
+            }
+            h2 {
+                margin-bottom: 30px;
+            }
+        }
+        .heade-down {
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-direction: row;
+            flex-wrap: wrap;
+            gap: 30px
+        }
+    }
+}

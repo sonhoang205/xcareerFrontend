@@ -1,0 +1,128 @@
+        body {
+            padding: 0px;
+            margin: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+        
+        @media (min-width: 1400px) {
+            .container,
+            .container-lg,
+            .container-md,
+            .container-sm,
+            .container-xl,
+            .container-xxl {
+                max-width: 2038px !important;
+            }
+        }
+        
+        video {
+            &:nth-child(1) {
+                position: fixed;
+                bottom: 0;
+                width: 100vw;
+            }
+        }
+        
+        .App-container {
+            .header-container {
+                .btn-login {
+                    border-radius: 5px;
+                    margin-right: 15px;
+                    padding: 0 15px;
+                    border: 1px solid #535353;
+                    height: 40px;
+                }
+                .btn-Signup {
+                    border-radius: 5px;
+                    margin-right: 15px;
+                    padding: 0 15px;
+                    background: #303030;
+                    color: white;
+                    height: 40px;
+                    &:hover {
+                        background: black;
+                    }
+                }
+                .navbar {
+                    padding-top: 20px;
+                    z-index: 100;
+                    font-size: 20px;
+                    opacity: 0.6;
+                    background-color: rgba(0, 0, 0, 0) !important;
+                    .nav-link {
+                        &.active {
+                            color: #00bfff;
+                        }
+                    }
+                }
+            }
+            .Homepage-container {
+                .homepage-cotent {
+                    padding: 100px;
+                    position: relative;
+                    width: 50%;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 30px;
+                    .first-tittle {
+                        font-size: 60px;
+                        font-weight: 500;
+                        line-height: 90px;
+                    }
+                    .second-tittle {
+                        font-size: 25px;
+                        line-height: 30px;
+                    }
+                    .third-tittle {
+                        button {
+                            padding: 0 15px;
+                            background: #303030;
+                            color: white;
+                            height: 40px;
+                        }
+                        .fourth-tittle {
+                            color: black;
+                        }
+                    }
+                }
+            }
+        }
+        
+        // .Homepage-body {
+        //     height: 100%;
+        //     position: relative;
+        //     margin-top: 400px;
+        //     background: white;
+        //     overflow: hidden;
+        //     .Homepage-body-first {
+        //         display: flex;
+        //         flex-direction: column;
+        //         text-align: center;
+        //         justify-content: center;
+        //         padding: 50px 50px;
+        //         height: 60vh;
+        //         h2 {
+        //             font-size: 50px;
+        //         }
+        //         h4 {
+        //             font-size: 40px;
+        //         }
+        //     }
+        //     .Homepage-second {
+        //         margin-top: 30px;
+        //         width: 100vw;
+        //         height: 100vh;
+        //         display: flex;
+        //         height: 100vh;
+        //         align-items: center;
+        //         justify-content: center;
+        //         align-items: center;
+        //         background: rgb(252, 250, 249);
+        //         gap: 50px;
+        //         .Homepage-second_tittle {
+        //             width: 50%;
+        //         }
+        //     }
+        // }
