@@ -1,0 +1,107 @@
+.container-header {
+    .tittle-header {
+        // display: flex;
+        // flex-direction: row;
+        // align-items: center;
+        // justify-content: space-around;
+        font-size: 40px;
+
+
+    }
+
+    .status {
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .sub-header {
+        font-size: 30px;
+        display: flex;
+        align-items: center;
+        gap: 30px;
+        cursor: pointer;
+
+        .icon {
+            color: #0000FF;
+        }
+    }
+}
+
+.container-body {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    gap: 40px;
+
+    .details {
+        display: flex;
+        flex-direction: column;
+        flex: 50%;
+
+        .Description {
+            margin-bottom: 40px;
+
+            .tittle {
+                font-size: 30px;
+            }
+        }
+
+        .assigned {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            border: 1px solid gray;
+            max-width: 500px;
+            border-radius: 5px;
+            margin-top: 20px;
+
+            .assigned-header {
+                display: flex;
+                align-items: center;
+                gap: 410px;
+                font-size: 20px;
+                margin: 0 10px;
+                border-bottom: 2px solid gray;
+
+                .icon {
+                    font-size: 25px;
+                    cursor: pointer;
+                }
+            }
+
+            .assigned-body {
+                display: flex;
+                align-items: center;
+                gap: 260px;
+                font-size: 20px;
+
+                .assigned-body-name {
+                    margin-left: 20px;
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+
+                }
+
+                .assigned-body-value {
+                    margin-top: 20px;
+                    margin-bottom: 10px;
+
+
+                }
+            }
+
+        }
+
+        .time {
+            font-size: 20px;
+            font-weight: 300;
+            margin-top: 20px;
+        }
+
+    }
+
+    .chat {
+        flex: 40%;
+    }
+}

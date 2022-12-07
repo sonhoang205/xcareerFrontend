@@ -22,7 +22,7 @@ import "nprogress/nprogress.css";
 const NotFound = () => {
   return (
     <div
-      class="alert alert-danger"
+      className="alert alert-danger"
       role="alert"
       style={{
         fontSize: "40px",

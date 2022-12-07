@@ -3,7 +3,7 @@ import "./Search.scss";
 const Search = (props) => {
   return (
     <nav className="navbar  ">
-      <div class="container-fluid">
+      <div className="container-fluid">
         <form className=" col-3">
           <input
             className="form-control me-2"
@@ -16,7 +16,7 @@ const Search = (props) => {
           </button>
         </form>
       </div>
-    </nav>
+    </nav >
   );
 };
 

@@ -15,11 +15,14 @@ import { BiRun } from "react-icons/bs";
 import { MdDoneAll } from "react-icons/md";
 import { ImCancelCircle } from "react-icons/im";
 import { BsFillCircleFill } from "react-icons/bs";
-
+import ShowDeatailTask from "../board/from-show-deatail-modal-task"
 import { TiDeleteOutline } from "react-icons/ti";
 import Example from "../board/from-create-card";
 import UpdateCard from "./from-update-card "
 import DeleteCard from "./from-delete-card"
+import { status } from "nprogress";
+import { FaUser } from "react-icons/fa";
+
 const Column = (props) => {
   const params = useParams();
   const location = useLocation();
@@ -33,11 +36,19 @@ const Column = (props) => {
   const [dataUpdate, setDataUpdate] = useState("")
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [datadelete, setDataDelete] = useState("")
+  // const [ShowDeatail, setShowDeatail] = useState(false)
+  // const [dataShowDeatail, setDataShowDeatail] = useState("")
+
 
 
 
 
   const { show, handleShow } = props
+
+  const ShowDeatailmodalTask = (user) => {
+    setShowUpdateModal(!showUpdateModal);
+    setDataUpdate(user);
+  };
 
 
   const handleShowUpdateModal = (user) => {
@@ -53,10 +64,12 @@ const Column = (props) => {
   const todo = async () => {
     const status = "To Do"
     let data = await http.get(
-      `//localhost:9090/api/task?status=${status}&projectId=${projectId}`
+      `//localhost:9090/api/task?status=To Do&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setTodocolum(data.data.data.tasks)
+
+
     }
   };
 
@@ -91,7 +104,6 @@ const Column = (props) => {
     if (data && data.data && data.data.success === 1) {
       setCancelColumn(data.data.data.tasks)
     }
-    console.log("cancelColumn", cancelColumn)
   };
 
 
@@ -127,14 +139,16 @@ const Column = (props) => {
                     <div className="card-item_header">
 
                       <p>
-                        <div style={{ color: "yellow", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
+                        <div style={{ color: "yellow", fontSize: "15px", marginBottom: "10px" }} > <BsFillCircleFill /></div>
+                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
 
-                        {item.title}
                       </p>
                       <span>
-                        <span onClick={() => handleShowUpdateModal(item)}><RiEdit2Fill /></span>
-                        <span onClick={() => handleShowDeleteModal(item)}
-                        > <TiDeleteOutline /> </span> </span>
+                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "yellow", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
+                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
+                        > <TiDeleteOutline /> Delete  </span>
+                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span>
+                      </span>
                     </div>
                   </li>
                 </ul>
@@ -170,13 +184,16 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header">
                       <p>
-                        <div style={{ color: "green", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
 
-                        {item.title}</p>
+                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
+
+                      </p>
                       <span>
-                        <span onClick={() => handleShowUpdateModal(item)}><RiEdit2Fill /></span>
-                        <span onClick={() => handleShowDeleteModal(item)}
-                        > <TiDeleteOutline /> </span> </span>
+                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", color: "whitesmoke", backgroundColor: "Green", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
+                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
+                        > <TiDeleteOutline /> Delete  </span>
+                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span>
+                      </span>
                     </div>
                   </li>
                 </ul>
@@ -209,13 +226,15 @@ const Column = (props) => {
                     <div className="card-item_header">
                       <p>
                         <div style={{ color: "blue", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
+                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
+                        <div style={{ border: "1px solid gray", backgroundColor: "gray", color: "whitesmoke", width: "100%", marginTop: "30px", display: "flex", alignItems: "center", justifyContent: "space-Around" }}>assignee:  <div>{item.assignee} </div>  </div>
 
-                        {item.title}
                       </p>
                       <span>
-                        <span onClick={() => handleShowUpdateModal(item)}><RiEdit2Fill /></span>
-                        <span onClick={() => handleShowDeleteModal(item)}
-                        > <TiDeleteOutline /> </span> </span>
+                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "blue", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
+                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
+                        > <TiDeleteOutline /> Delete  </span>
+                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span></span>
 
                     </div>
                   </li>
@@ -248,12 +267,15 @@ const Column = (props) => {
                       <p>
                         <div style={{ color: "red", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
 
-                        {item.title}
+                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
+                        <div style={{ border: "1px solid gray", backgroundColor: "gray", color: "whitesmoke", width: "100%", marginTop: "30px", display: "flex", alignItems: "center", justifyContent: "space-Around" }}>assignee:  <div>{item.assignee} </div>  </div>
+
                       </p>
                       <span>
-                        <span onClick={() => handleShowUpdateModal(item)}><RiEdit2Fill /></span>
-                        <span onClick={() => handleShowDeleteModal(item)}
-                        > <TiDeleteOutline /> </span>
+                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "red", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
+                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
+                        > <TiDeleteOutline /> Delete  </span>
+                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span> </span>
 
                       </span>
 
@@ -287,6 +309,7 @@ const Column = (props) => {
       <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} />
       <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
+      <ShowDeatailTask show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
     </>
   );
 };

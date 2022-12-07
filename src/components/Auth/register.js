@@ -108,14 +108,14 @@ const Register = (props) => {
         <div>
           <button
             type="button"
-            class="btn btn-success submit"
+            className="btn btn-success submit"
             onClick={() => handlesubmit()}
           >
             Sign Up
           </button>
         </div>
         <div>
-          <button type="button" class="btn   submit">
+          <button type="button" className="btn   submit">
             <Link to="/"> Back to HomePage</Link>
           </button>
         </div>

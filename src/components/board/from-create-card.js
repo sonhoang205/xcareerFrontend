@@ -27,10 +27,7 @@ const Example = (props) => {
             "http://localhost:9090/api/task/create",
             dataCreate
         );
-        if (!projectId) {
-            toast.error("projectId not Found");
-            return;
-        }
+
         if (!title) {
             toast.error("please enter name");
             return;
@@ -41,7 +38,6 @@ const Example = (props) => {
             toast.success("create new card success");
             setTitle("");
             setdescription("");
-            setstatus("...");
             setAssignee("");
             setReporter("");
             handleShow();
@@ -103,6 +99,7 @@ const Example = (props) => {
                                 onChange={(event) => setAssignee(event.target.value)}
                             />
                         </div>
+
                         <div className="col-md-6">
                             <label for="inputEmail4" className="form-label">
                                 reporter
@@ -115,18 +112,6 @@ const Example = (props) => {
                             />
                         </div>
 
-                        {/* <div className="col-md-12">
-                            <label for="inputEmail4" className="form-label">
-                                ProjectId
-                            </label>
-                            <input
-                                className="form-control"
-                                id="inputEmail4"
-                                value={abc}
-                                onChange={(event) => setReporter(event.target.value)}
-                                disabled
-                            />
-                        </div> */}
                         <div className="col-md-12">
                             <label for="inputPassword4" className="form-label">
                                 status

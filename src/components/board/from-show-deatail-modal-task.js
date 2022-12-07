@@ -50,7 +50,6 @@ const UpdateCard = (props) => {
             toast.success("update card success");
             setTitle("");
 
-            handleShow();
             await todo();
             await inProgress();
             await Done();
@@ -67,7 +66,7 @@ const UpdateCard = (props) => {
 
     return (
         <>
-            <Modal show={show} onHide={handleShow} size="sm"
+            <Modal show={show} onHide={handleShow} size="xl"
             >
                 <Modal.Header closeButton>
                     <Modal.Title> update card</Modal.Title>
