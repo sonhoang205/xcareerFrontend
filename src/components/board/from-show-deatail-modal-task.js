@@ -8,6 +8,9 @@ import _ from "lodash";
 import { FaRegUserCircle } from "react-icons/fa";
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
+import { IoIosSend } from "react-icons/io";
+import { BsSortDownAlt } from "react-icons/bs";
+
 import { useSelector } from "react-redux";
 import Form from 'react-bootstrap/Form';
 
@@ -23,11 +26,13 @@ const ShowDeatailTask = (props) => {
     const [attach, setAttach] = useState("");
     const [image, setImage] = useState("");
     const [preImage, setPreImage] = useState("");
+    const [inputComment, setInputComment] = useState("");
 
     const [imageState, setImageState] = useState(false);
     const [descriptionState, setDescriptionState] = useState(false);
     const [titleState, setTitleState] = useState(false);
     const [button, setButton] = useState(false);
+    const [sortInput, setSortInput] = useState(false);
 
 
     
@@ -40,14 +45,18 @@ const ShowDeatailTask = (props) => {
           `http://localhost:9090/api/comment?taskId=${id}`
         );
         if (data && data.data && data.data.success === 1) {
-            console.log(data.data.data.comments)
+            console.log("account.id", account.id)
             setComment(data.data.data.comments)
     
     
         }
       };
+       useEffect(() => {
+        comments()
 
-    useEffect(() => {
+     }, [id]);
+
+      useEffect(() => {
         if (!_.isEmpty(dataUpdate)) {
             setTitle(dataUpdate.title);
             setdescription(dataUpdate.description);
@@ -59,16 +68,14 @@ const ShowDeatailTask = (props) => {
 
 
         }
-    }, [dataUpdate]);
+      }, [dataUpdate]);
 
-    useEffect(() => {
-        comments()
+    
+   const handleChangSortInput = ()=> {
+          setSortInput(!sortInput)
+   }
 
-    }, [id]);
-
-
-    console.log("member",member)
-    const handleUpdateCard = async () => {
+     const handleUpdateCard = async () => {
         let dataupdate = {
             status: status,
             projectID: projectId,
@@ -101,45 +108,70 @@ const ShowDeatailTask = (props) => {
             toast.error(res.data.message);
             return;
         }
-    };
+     };
 
 
-    const handleUpdateImage = (event)=>{
+      const handleUpdateImage = (event)=>{
             setPreImage(URL.createObjectURL(event.target.files[0]))  
             setImage(URL.createObjectURL(event.target.files[0]))
             console.log("update" , event.target.files[0])
         
        
-    }
-    const ChangeState =()=> {
+     }
+     const ChangeState =()=> {
         setImageState(!imageState)
         setButton(true)
-    }
-    const ChangeStateOne =()=> {
+     }
+     const ChangeStateOne =()=> {
         setImageState(true)
         setButton(false)
-    }
-    const ChangeStateDescripton =()=> {
+     }
+     const ChangeStateDescripton =()=> {
         setDescriptionState(true)
         setButton(true)
 
-    }
-    const ChangeStateDescriptonOne =()=> {
+     }
+     const ChangeStateDescriptonOne =()=> {
         setDescriptionState(true)
         setButton(false)
 
-    }
-    const ChangestateTitle =()=> {
+     }
+     const ChangestateTitle =()=> {
         setTitleState(!titleState)
         setButton(!button)
 
-    }
-    const ChangestateAssgin =()=> {
+     }
+     const ChangestateAssgin =()=> {
         setButton(true)
 
-    }
+     }
 
-    console.log("id",id)
+     const handleInputComment = async ()=>{
+        let commentCreate = {
+            content: inputComment,
+            taskId:id,
+            createdById:account.id
+          };
+          console.log("commentCreate",commentCreate);
+      
+          let res = await http.post(
+            `http://localhost:9090/api/comment/create`,
+            commentCreate
+          );
+          if (res && res.data.success === 1) {
+            console.log("res", res);
+            setInputComment("")
+          
+            await comments();
+          }
+      
+       
+          
+        };
+     
+    
+
+
     return (
         <>
             <Modal show={show} onHide={handleShow} size="xl"
@@ -216,10 +248,12 @@ const ShowDeatailTask = (props) => {
                              id="inputEmail4"
                              as="textarea"
                              rows="2"
-                             style={{marginTop: "20px", fontSize:"30px", borderRadius:"10px" , width:"50%"  ,backgroundColor:"white",border:"none"}}
+                             style={{marginTop: "20px", fontSize:"30px", borderRadius:"10px" , width:"50%"  ,backgroundColor:"white",border:"none" , cursor:"pointer"}}
                              placeholder="Add new description"
                              value={description}
                              onChange={(event) => setdescription(event.target.value)}
+                             onClick={ChangeStateDescripton} 
+                             onBlur={ChangeStateDescriptonOne}
                          />
                         </div> : 
                           <Form.Control
@@ -334,50 +368,169 @@ const ShowDeatailTask = (props) => {
                 </Modal.Footer>
                 </Modal.Body>
               
+
+              {/* /////////////////////////////////// */}
+                <div className="chat-option">
+                    <div className="chat-option-left">
+                        <div className="chat-option-left_title">Activity</div>
+                        <div className="chat-option-left_body " >Show : <span> comment</span></div>
+
+                     </div>
+                     { sortInput === false ?  
+                     
+                     <div className="chat-option-right" onClick={handleChangSortInput}>
+                        
+                        <div className="chat-option-right_title" >Oldest first
+                      </div>
+                        <div className="chat-option-right_body " ><BsSortDownAlt/> </div>
+
+                     </div>
+                    
+                     :   
+                     
+                     <div className="chat-option-right" onClick={handleChangSortInput}>
+                        
+                    <div className="chat-option-right_title">Newest firs
+                  </div>
+                    <div className="chat-option-right_body " ><BsSortDownAlt/> </div>
+
+                 </div>
+                
+                }
+             </div>
+
+
                 <div className='chat'>
-                  <div className="info-coversation">
-                    <div className="coversation-left">
+                   
+                     
+                <Modal.Body>
+                    {sortInput === true &&   
+                    
+                    <div className="chat-input_header">
+                         <div className="chat-input_img_header" >
+                           
+                            <img src="https://i.pinimg.com/originals/07/a4/20/07a420f822e2d0624c76efba4fbb0b24.jpg" alt="" />
+                            </div>
+                          <div className="col-md-10 chat-input_text_header">
+                         
+                         <Form.Control
 
-                        <div className="coversation-left_info">
+                            type="text"
+                            as="textarea"
+                            rows="2"
+                           value={inputComment}
+                           onChange={(event) => setInputComment(event.target.value)}
 
-                           <div className="coversation-left_user" >                         
-                             huy lê
-                          </div>
-                          <div className="coversation-left_time" >time</div>
+                        />
 
-                        </div>
-                        <div className="coversation-left_title" >nay code react js khó quá</div>
-                        <div className="coversation-left_option"> 
-                        <div className="edit"> edit</div>
-                        <div className="delete"> delete</div>
+                      </div> 
+              
+                       <div className="chat-input_icon_header" >
+                       <button type="button" className="btn button  "  onClick={() => handleInputComment()}
+>
+                           <IoIosSend /> 
+                         </button>
+                   </div> 
+                   </div> 
+                   }
+ 
 
-                        </div>
+                <div className='chat-body'>
+               
 
+                {comment  && comment.length >0 &&
+                
+                 comment.map((item,index)=>{
+                   return(
+                    <div className="chat-left col-md-10">
+                    <div className="chat-left_img" >
+                    <img src="https://i.pinimg.com/originals/07/a4/20/07a420f822e2d0624c76efba4fbb0b24.jpg" alt="" />
                     </div>
-                    <div className="coversation-right">
-                    <div className="coversation-right_info">
-
-                            <div className="coversation-left_user" >                         
-                                        huy lê
+                     { item.createdById === account.id ?
+                    
+                        <div className="chat-left_text col-md-8">
+                        <Form.Control
+    
+                         type="text"
+                         as="textarea"
+                         rows="1"
+                         value={item.content}
+                          disabled
+                          />
+    
+                        
                          </div>
-                      <div className="coversation-righ_time" >time</div>
 
-                    </div>
-                    <div className="coversation-righ_title" >nay code react js khó quá</div>
-                    <div className="coversation-righ_option"> 
-                    <div className="edit"> edit</div>
-                    <div className="delete"> delete</div>
+                         :
+                            
+                   <div className="chat-right col-md-10">
 
-</div>
 
-</div>
-                  </div>
-                  <div className="input-coversation">
-                   <input type="text" />
-                   <button type="submit"> send</button>
-                  </div>
+                      <div className="col-md-8 chat-right_text">
+                     <Form.Control
+
+                        type="text"
+                        as="textarea"
+                        rows="1"
+                        disabled
+                        value={item.content}
+
+                    />
+                    </div> 
+                
+                
+                        <div className="chat-right_img" >
+
+                        <img src="https://i.pinimg.com/736x/45/9c/d4/459cd4d785492430cd862333b7ef0c73--monkey-d-luffy-monkeys.jpg" alt="" />
+
+                        </div> 
+
+          
+                  </div> 
+                    
+                   
+                     }
+            
+           </div> 
+
+                   )
+             })}
+                   
+               
+                        
+               </div> 
+               { sortInput === false &&
+
+               <div className="chat-input">
+                         <div className="chat-input_img" >
+                           
+                            <img src="https://i.pinimg.com/originals/07/a4/20/07a420f822e2d0624c76efba4fbb0b24.jpg" alt="" />
+                            </div>
+                          <div className="col-md-10 chat-input_text">
+                         
+                         <Form.Control
+
+                            type="text"
+                            as="textarea"
+                            rows="2"
+                           value={inputComment}
+                           onChange={(event) => setInputComment(event.target.value)}
+
+                        />
+
+                      </div> 
+                       <div className="chat-input_icon" >
+                       <button type="button" className="btn button  "  onClick={() => handleInputComment()}
+>
+                           <IoIosSend /> 
+                         </button>
+                   </div> 
+                   </div> 
+
+                           }
+                </Modal.Body>
                 </div> 
-                          </Modal>
+            </Modal>
         </>
     );
 }
