@@ -37,7 +37,6 @@ const Workspace = (props) => {
   const handleDeleteWorkspace = (user) => {
     setShowModalDeleteWorkspace(!showModalDeleteWorkspace);
     setDataDelete(user);
-    console.log(user);
   };
   // const viewWorkspaceDetails = (user) => {
   //   navigate(`/workspacedetails/${user._id}`);

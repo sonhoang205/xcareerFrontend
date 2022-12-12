@@ -9,6 +9,7 @@ import React, { useState } from "react";
 const Header = () => {
   const navigate = useNavigate();
   const [show, setShow] = useState(false);
+
   const [profile, setProfile] = useState();
   const islogin = useSelector((state) => state.user.islogin);
   const account = useSelector((state) => state.user.account);
@@ -16,6 +17,7 @@ const Header = () => {
     setShow(!show);
     setProfile(account);
   };
+
   const handleLogin = () => {
     navigate("/Login");
   };
@@ -23,11 +25,9 @@ const Header = () => {
     navigate("/register");
   };
 
-  // console.log("islogin", islogin, "account", account);
   return (
     <Navbar bg="light" expand="lg">
       <Container>
-        {/* <Navbar.Brand href="#home">Bootstrap</Navbar.Brand> */}
         <NavLink to="/" className="navbar-brand">
           {" "}
           Bootstrap
@@ -69,7 +69,7 @@ const Header = () => {
                 <NavDropdown.Item onClick={() => handleShowProfile(account)}>
                   Profile
                 </NavDropdown.Item>
-                <NavDropdown.Item>Log Out</NavDropdown.Item>
+                <NavDropdown.Item >Log Out</NavDropdown.Item>
               </NavDropdown>
             )}
           </Nav>
@@ -80,6 +80,7 @@ const Header = () => {
         handleShowProfile={handleShowProfile}
         profile={profile}
       />
+   
     </Navbar>
   );
 };

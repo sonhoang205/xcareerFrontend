@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../../http-common";
 
-function DeleteProject(props) {
+const DeleteProject=(props)=> {
   const { showDeleteModal, handleShowDeleteModal, dataDelete, abc } = props;
   const handleDeleteProject = async (userId) => {
     let res = await http.delete(

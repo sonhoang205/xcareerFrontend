@@ -66,13 +66,13 @@ const WorkspaceDetails = (props) => {
             project?.data?.projects.map((item, index) => {
               return (
                 <div
-                  class="card text-white bg-info mb-3"
+                className="card text-white bg-info mb-3"
                   style={{ maxWidth: "30rem" }}
                   key={index}
                 >
                   <div
                     style={{ cursor: "pointer" }}
-                    class="card-header"
+                    className="card-header"
                   // onClick={() =>
                   //   navigate(`Board/${item._id}`, {
                   //     state: { nameWorkProject: item.name },
@@ -119,15 +119,13 @@ const WorkspaceDetails = (props) => {
                       <RiDeleteBack2Fill />
                     </span>
                   </div>
-                  <div class="card-body">
-                    <p class="card-title"> type : {item.type}</p>
-                    <p class="card-title"> Lead : {item.lead}</p>
+                  <div className="card-body">
+                    <p className="card-title"> type : {item.type}</p>
+                    <p className="card-title"> Lead : {item.lead}</p>
 
-                    <p class="card-title">id : {item._id}</p>
+                    <p className="card-title">id : {item._id}</p>
 
-                    {/* <p class="card-text">Board : 1</p>
-                    <p class="card-text"> Task : 5</p>
-                    <p class="card-text"> Done : </p> */}
+                  
                   </div>
                 </div>
               );

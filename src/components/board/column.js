@@ -22,6 +22,9 @@ import UpdateCard from "./from-update-card "
 import DeleteCard from "./from-delete-card"
 import { status } from "nprogress";
 import { FaUser } from "react-icons/fa";
+import { BsFillFlagFill } from "react-icons/bs";
+
+import _ from "lodash";
 
 const Column = (props) => {
   const params = useParams();
@@ -36,17 +39,38 @@ const Column = (props) => {
   const [dataUpdate, setDataUpdate] = useState("")
   const [showDeleteModal, setShowDeleteModal] = useState(false)
   const [datadelete, setDataDelete] = useState("")
-  // const [ShowDeatail, setShowDeatail] = useState(false)
+  const [showDetailModal, setShowDetailModal] = useState(false)
+  const [status, setstatus] = useState("To Do");
+  const [title, setTitle] = useState("");
+  const [dataFlag, setDataFlag] = useState("")
+
+  const [ShowFlag, setShowFlag] = useState(false)
+  const [ShowFlagIP, setShowFlagIP] = useState(false)
+
+  const [ShowFlagC, setShowFlagC] = useState(false)
   // const [dataShowDeatail, setDataShowDeatail] = useState("")
 
 
 
 
+  const { show, handleShow ,member} = props
 
-  const { show, handleShow } = props
+
+  const ShowFlagInProgress = () => {
+    setShowFlagIP(!ShowFlagIP);
+  };
+  const ShowFlagDone = () => {
+    setShowFlagC(!ShowFlagC);
+  };
+
+
+
+
+
+
 
   const ShowDeatailmodalTask = (user) => {
-    setShowUpdateModal(!showUpdateModal);
+    setShowDetailModal(!showDetailModal);
     setDataUpdate(user);
   };
 
@@ -55,6 +79,8 @@ const Column = (props) => {
     setShowUpdateModal(!showUpdateModal);
     setDataUpdate(user);
   };
+
+
 
   const handleShowDeleteModal = (user) => {
     setShowDeleteModal(!showDeleteModal);
@@ -107,6 +133,13 @@ const Column = (props) => {
   };
 
 
+
+
+// const seclectAllText = (e)=>{
+//     e.target.focus()
+//     e.target.select()
+// }
+console.log(dataUpdate)
   useEffect(() => {
     todo();
     inProgress();
@@ -121,7 +154,7 @@ const Column = (props) => {
     <>
 
       <div className="column" >
-        <div className="column-drag-handle" style={{ backgroundColor: "#CC33FF" }}>
+        <div className="column-drag-handle" style={{ backgroundColor: "#F5F5F5" }}>
 
           <div className="title-header"><span style={{ color: "#00EE00", marginRight: "20px" }}><BsFillPencilFill /></span> To Do </div>
 
@@ -133,23 +166,42 @@ const Column = (props) => {
           todoColum.map((item, index) => {
             return (
               <>
-                <ul className="card-list" key={index} style={{ backgroundColor: "#CC33FF" }}>
+                <ul className="card-list" key={index} style={{ backgroundColor: "#F5F5F5" }}>
 
                   <li>
-                    <div className="card-item_header">
+                    <div className="card-item_header"  >
+                      <div className="title">
+                        <div
+                      
+                          type="text"
+                          className="form-control edit-title"
+                          //  onChange={(event) => setTitle(event.target.value)}
+                          //  onBlur={(event) => setTaskTitle(event.target.value)}
+                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
+                          </div>
+                        <span className="icon"> <Dropdown>
+                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
+                      
+                       <Dropdown.Menu>
 
-                      <p>
-                        <div style={{ color: "yellow", fontSize: "15px", marginBottom: "10px" }} > <BsFillCircleFill /></div>
-                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
+                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown></span> 
 
-                      </p>
-                      <span>
-                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "yellow", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
-                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
-                        > <TiDeleteOutline /> Delete  </span>
-                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span>
-                      </span>
+                        </div>
+                      
+                      <div className="status">
+                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                       To Do
+
+                       
+                      </div>
+                     
+
+                       <span className="user"><FaUser/></span> 
+                      </div>
                     </div>
+
                   </li>
                 </ul>
 
@@ -170,7 +222,7 @@ const Column = (props) => {
       < div className="column" >
         <div className="column-drag-handle" style={{ backgroundColor: "palegoldenrod" }}>
 
-          <div className="title-header"> <span style={{ color: "#C71585", marginRight: "20px", fontSize: "35px" }}><GiWalk /></span>In Progress </div>
+          <div className="title-header"> <span style={{ color: "#C71585", marginRight: "15px", fontSize: "35px" }}><GiWalk /></span>In Progress </div>
 
         </div>
         {
@@ -182,18 +234,38 @@ const Column = (props) => {
                 <ul className="card-list" key={index} style={{ backgroundColor: "palegoldenrod" }}>
 
                   <li>
-                    <div className="card-item_header">
-                      <p>
+                  <div className="card-item_header"  >
+                      <div className="title">
+                        <div
+                      
+                          type="text"
+                          className="form-control edit-title"
+                          //  onChange={(event) => setTitle(event.target.value)}
+                          //  onBlur={(event) => setTaskTitle(event.target.value)}
+                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
+                          </div>
+                        <span className="icon"> <Dropdown>
+                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
+                      
+                       <Dropdown.Menu>
 
-                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
+                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown></span> 
 
-                      </p>
-                      <span>
-                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", color: "whitesmoke", backgroundColor: "Green", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
-                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
-                        > <TiDeleteOutline /> Delete  </span>
-                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span>
-                      </span>
+                        </div>
+                     
+                      
+                      <div className="status">
+                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                       In Progress
+
+                       
+                      </div>
+                     
+
+                       <span className="user"><FaUser/></span> 
+                      </div>
                     </div>
                   </li>
                 </ul>
@@ -212,7 +284,7 @@ const Column = (props) => {
       < div className="column" >
         <div className="column-drag-handle" style={{ backgroundColor: "olive" }}>
 
-          <div className="title-header"><span style={{ color: "	#FF4500", marginRight: "20px", fontSize: "35px" }}><MdDoneAll /></span> Done</div>
+          <div className="title-header"><span style={{ color: "	#FF4500", marginRight: "15px", fontSize: "35px" }}><MdDoneAll /></span> Done</div>
 
         </div>
         {
@@ -223,19 +295,36 @@ const Column = (props) => {
                 <ul className="card-list" key={index} style={{ backgroundColor: "olive" }}>
 
                   <li>
-                    <div className="card-item_header">
-                      <p>
-                        <div style={{ color: "blue", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
-                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
-                        <div style={{ border: "1px solid gray", backgroundColor: "gray", color: "whitesmoke", width: "100%", marginTop: "30px", display: "flex", alignItems: "center", justifyContent: "space-Around" }}>assignee:  <div>{item.assignee} </div>  </div>
+                  <div className="card-item_header"  >
+                      <div className="title">
+                        <div
+                      
+                          type="text"
+                          className="form-control edit-title"
+                          //  onChange={(event) => setTitle(event.target.value)}
+                          //  onBlur={(event) => setTaskTitle(event.target.value)}
+                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
+                          </div>
+                        <span className="icon"> <Dropdown>
+                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
+                      
+                       <Dropdown.Menu>
 
-                      </p>
-                      <span>
-                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "blue", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
-                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
-                        > <TiDeleteOutline /> Delete  </span>
-                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span></span>
+                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown></span> 
 
+                        </div>
+                      
+                      <div className="status">
+                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                      Done
+                       
+                      </div>
+                     
+
+                       <span className="user"><FaUser/></span> 
+                      </div>
                     </div>
                   </li>
                 </ul>
@@ -263,22 +352,35 @@ const Column = (props) => {
                 <ul className="card-list" key={index} style={{ backgroundColor: "palevioletred" }}>
 
                   <li>
-                    <div className="card-item_header">
-                      <p>
-                        <div style={{ color: "red", fontSize: "15px", marginBottom: "10px" }}> <BsFillCircleFill /></div>
+                  <div className="card-item_header"  >
+                      <div className="title">
+                        <div
+                      
+                          type="text"
+                          className="form-control edit-title"
+                       
+                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
+                          </div>
+                        <span className="icon"> <Dropdown>
+                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
+                      
+                       <Dropdown.Menu>
 
-                        <div onClick={() => ShowDeatailmodalTask(item)} style={{ marginTop: "20px" }}>{item.title} </div>
-                        <div style={{ border: "1px solid gray", backgroundColor: "gray", color: "whitesmoke", width: "100%", marginTop: "30px", display: "flex", alignItems: "center", justifyContent: "space-Around" }}>assignee:  <div>{item.assignee} </div>  </div>
+                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                        </Dropdown.Menu>
+                      </Dropdown></span> 
 
-                      </p>
-                      <span>
-                        <span onClick={() => handleShowUpdateModal(item)} style={{ border: "1px solid black", borderRadius: "10px", fontSize: "15px", backgroundColor: "red", display: "flex", alignItems: "center", marginBottom: "10px" }}>{item.status}</span>
-                        <span onClick={() => handleShowDeleteModal(item)} style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}
-                        > <TiDeleteOutline /> Delete  </span>
-                        <span style={{ fontSize: "20px", borderRadius: "20px", border: "1px solid gray", marginTop: "15px", display: "flex", alignItems: "center" }}><FaUser/>{item.assignee}</span> </span>
+                        </div>
+                      
+                      <div className="status">
+                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                       Cancel
+                       
+                      </div>
+                     
 
-                      </span>
-
+                       <span className="user"><FaUser/></span> 
+                      </div>
                     </div>
                   </li>
                 </ul>
@@ -306,10 +408,10 @@ const Column = (props) => {
 
 
       </div >
-      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} />
+      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member}/>
       <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
-      <ShowDeatailTask show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
+      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} member={member}/>
     </>
   );
 };

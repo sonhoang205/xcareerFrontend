@@ -1,14 +1,13 @@
 import "./login.scss";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
-import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ImSpinner3 } from "react-icons/im";
 import NProgress from "nprogress";
 import http from "../../http-common";
-
+import axios from "axios";
 NProgress.start();
 NProgress.done();
 const Login = (props) => {
@@ -38,6 +37,7 @@ const Login = (props) => {
     });
     // console.log("res ", res);
     if (res && res.data.success === 1) {
+      console.log("res",res)
       //set bang localstorage
       dispatch({
         type: "FETCH_USER_LOGIN_SUCCES",
@@ -67,7 +67,7 @@ const Login = (props) => {
         <div className="spacer"></div>
 
         <div className="form-group">
-          <label for="fullname" className="form-label">
+          <label htmlor="fullname" className="form-label">
             Username
           </label>
           <input

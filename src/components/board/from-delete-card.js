@@ -4,7 +4,6 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../http-common";
-import { AiFillFile } from "react-icons/ai";
 
 const DeleteCard = (props) => {
     const { show, handleShow, todo, inProgress, Done, Cancel, datadelete } = props;

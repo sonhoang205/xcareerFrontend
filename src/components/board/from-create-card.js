@@ -3,15 +3,18 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import http from "../../http-common";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 
 const Example = (props) => {
-    const { show, handleShow, projectId, todo, inProgress, Done, Cancel } = props;
+    const { show, handleShow, projectId, todo, inProgress, Done, Cancel ,member} = props;
     const [title, setTitle] = useState("");
     const [description, setdescription] = useState("");
     const [status, setstatus] = useState("To Do");
     const [assignee, setAssignee] = useState("");
     const [reporter, setReporter] = useState("");
 
+    const islogin = useSelector((state) => state.user.islogin);
+    const account = useSelector((state) => state.user.account);
     const handleCreatcard = async () => {
         let dataCreate = {
             status: status,
@@ -21,7 +24,7 @@ const Example = (props) => {
             assignee: assignee,
             reporter: reporter,
         };
-        console.log(dataCreate);
+        console.log("dataCreate",);
 
         let res = await http.post(
             "http://localhost:9090/api/task/create",
@@ -75,6 +78,7 @@ const Example = (props) => {
                                 onChange={(event) => setTitle(event.target.value)}
                             />
                         </div>
+                       
                         <div className="col-md-6">
                             <label for="inputEmail4" className="form-label">
                                 description
@@ -107,8 +111,9 @@ const Example = (props) => {
                             <input
                                 className="form-control"
                                 id="inputEmail4"
-                                value={reporter}
+                                value={account.username}
                                 onChange={(event) => setReporter(event.target.value)}
+                                disabled
                             />
                         </div>
 
@@ -119,9 +124,11 @@ const Example = (props) => {
 
                             <select
                                 // id="inputState"
-                                class="form-select"
+                                className="form-select"
                                 value={status}
                                 onChange={(event) => setstatus(event.target.value)}
+                                disabled
+
                             >
                                 <option>To Do</option>
                                 {/* <option>In Progress</option>

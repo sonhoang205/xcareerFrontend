@@ -87,7 +87,7 @@ const UpdateProject = (props) => {
 
               <select
                 id="inputState"
-                class="form-select"
+                className="form-select"
                 value={type}
                 onChange={(event) => setType(event.target.value)}
               >

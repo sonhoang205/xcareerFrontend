@@ -47,8 +47,7 @@ const UpdateCard = (props) => {
 
         if (res && res.data.success === 1) {
             console.log("res", res);
-            toast.success("update card success");
-            setTitle("");
+            toast.success(`${dataUpdate.status} ---> ${status}`);
 
             handleShow();
             await todo();
@@ -70,22 +69,11 @@ const UpdateCard = (props) => {
             <Modal show={show} onHide={handleShow} size="sm"
             >
                 <Modal.Header closeButton>
-                    <Modal.Title> update card</Modal.Title>
+                    <Modal.Title>  changed the Status</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
-                        <div className="col-md-12">
-                            <label for="inputEmail4" className="form-label">
-                                title
-                            </label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                id="inputEmail4"
-                                value={title}
-                                onChange={(event) => setTitle(event.target.value)}
-                            />
-                        </div>
+                      
 
 
 
@@ -96,7 +84,7 @@ const UpdateCard = (props) => {
 
                             <select
                                 id="inputState"
-                                class="form-select"
+                                className="form-select"
                                 value={status}
                                 onChange={(event) => setstatus(event.target.value)}
                             >
@@ -106,18 +94,23 @@ const UpdateCard = (props) => {
                                 <option>Cancel</option>
 
                             </select>
+                        
                         </div>
+                        <Button variant="primary" onClick={handleUpdateCard}>
+                        Save
+                    </Button>
                         <div className="col-md-12"></div>
                     </form>
+                   
                 </Modal.Body>
-                <Modal.Footer>
+                {/* <Modal.Footer>
                     <Button variant="secondary" onClick={handleShow}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleUpdateCard}>
                         Save
                     </Button>
-                </Modal.Footer>
+                </Modal.Footer> */}
             </Modal>
         </>
     );

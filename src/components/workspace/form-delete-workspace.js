@@ -5,7 +5,7 @@ import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../http-common";
 
-function Delete(props) {
+const Delete=(props)=> {
   const { HandleShowDelete, setHandleShowDelete, dataDelete, fetchData } =
     props;
   const handleDeleteWorkSpace = async () => {
