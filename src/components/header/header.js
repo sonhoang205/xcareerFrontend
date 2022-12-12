@@ -6,11 +6,17 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Example from "../header/profile-modal";
 import React, { useState } from "react";
+import { useDispatch } from "react-redux";
+import {dologout} from "../../redux/action/userAction"
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [show, setShow] = useState(false);
+  const [login, setLogin] = useState(false);
 
   const [profile, setProfile] = useState();
+
   const islogin = useSelector((state) => state.user.islogin);
   const account = useSelector((state) => state.user.account);
   const handleShowProfile = (username) => {
@@ -24,6 +30,12 @@ const Header = () => {
   const handleRegister = () => {
     navigate("/register");
   };
+
+  const handleLogout =()=>{
+    // localStorage.removeItem('user');
+    dispatch(dologout())
+  
+   }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -50,7 +62,8 @@ const Header = () => {
             </NavLink>
           </Nav>
           <Nav>
-            {islogin === false ? (
+            { islogin===false 
+            ? (
               <>
                 <button className="btn-login" onClick={() => handleLogin()}>
                   {" "}
@@ -69,7 +82,7 @@ const Header = () => {
                 <NavDropdown.Item onClick={() => handleShowProfile(account)}>
                   Profile
                 </NavDropdown.Item>
-                <NavDropdown.Item >Log Out</NavDropdown.Item>
+                <NavDropdown.Item  onClick={()=>handleLogout()}>Log Out</NavDropdown.Item>
               </NavDropdown>
             )}
           </Nav>

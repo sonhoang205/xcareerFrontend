@@ -1,3 +1,7 @@
+import {LOGOUT} from "../action/userAction"
+
+
+
 const INITIAL_STATE = {
   account: {
     _id: "",
@@ -25,7 +29,20 @@ const userReducer = (state = INITIAL_STATE, action) => {
         },
         islogin: true,
       };
-
+      case LOGOUT:
+        console.log(action);
+        return {
+          ...state,
+         
+          account: {
+            _id: "",
+            token: "",
+            username: "",
+            
+          },
+          islogin: false,
+        };
+  
     default:
       return state;
   }

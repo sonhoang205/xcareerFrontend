@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
-import store from "./redux/store";
+import {store , persistor} from "./redux/store";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Board from "./components/board/Board";
@@ -18,6 +18,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRouter from "../src/components/routes/PrivateRouter";
 import "nprogress/nprogress.css";
+import { PersistGate } from 'redux-persist/integration/react'
 
 const NotFound = () => {
   return (
@@ -38,6 +39,8 @@ const NotFound = () => {
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+
     {/* <React.StrictMode> */}
     <BrowserRouter>
       <Routes>
@@ -84,6 +87,8 @@ root.render(
       pauseOnHover
       theme="light"
     />
+          </PersistGate>
+
   </Provider>
 );
 

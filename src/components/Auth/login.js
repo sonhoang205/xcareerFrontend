@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { ImSpinner3 } from "react-icons/im";
 import NProgress from "nprogress";
-import http from "../../http-common";
 import axios from "axios";
 NProgress.start();
 NProgress.done();
@@ -16,6 +15,14 @@ const Login = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
+
+const onKeyDown =(event)=>{
+if(event && event.key === "Enter"){
+  handleLogin()
+}
+
+}
+
   const handleClose = () => {
     setName("");
     setPassword("");
@@ -31,7 +38,7 @@ const Login = (props) => {
     setLoading(true);
     NProgress.start();
 
-    let res = await http.post("http://localhost:9090/api/auth/login", {
+    let res = await axios.post("http://localhost:9090/api/auth/login", {
       username: username,
       password: password,
     });
@@ -75,6 +82,8 @@ const Login = (props) => {
             className="form-control"
             value={username}
             onChange={(event) => setName(event.target.value)}
+            onKeyDown={(event) => onKeyDown(event)}
+
           />{" "}
           <span className="form-message"></span>
         </div>
@@ -86,6 +95,8 @@ const Login = (props) => {
             className="form-control"
             value={password}
             onChange={(event) => setPassword(event.target.value)}
+            onKeyDown={(event) => onKeyDown(event)}
+
           />
         </div>
 
