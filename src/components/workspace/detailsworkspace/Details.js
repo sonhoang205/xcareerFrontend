@@ -91,7 +91,7 @@ const WorkspaceDetails = (props) => {
                       <span
                         onClick={() =>
                           navigate(`project/${item._id}`, {
-                            state: { nameWorkProject: item.name },
+                            state: { nameWorkProject: item.name , workspaceId :item._id },
                           })
                         }
                       >

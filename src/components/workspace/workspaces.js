@@ -122,7 +122,7 @@ const Workspace = (props) => {
                           style={{ marginRight: "30px" }}
                           onClick={() =>
                             navigate(`workspacedetails/${item._id}`, {
-                              state: { nameWorkSpace: item.name },
+                              state: { nameWorkSpace: item.name , idWorkSpace :item._id },
                             })
                           }
                         >

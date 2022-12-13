@@ -1,9 +1,14 @@
 .board-content {
     display: flex;
-    height: 65vh;
+    height: 72vh;
     font-size: 25px;
     overflow-x: auto;
     overflow-y: auto;
+    background-color: blueviolet;
+    margin-right: 35px;
+    border-radius: 10px;
+    
+    
 
     &::after {
         content: "";
@@ -32,7 +37,8 @@
 
 
 }
-.invite-member{
-    display: flex;
-    gap:300px
+.button{
+    margin-bottom: 20px;
+    margin-top: 20px;
+    margin-left: 30px;
 }

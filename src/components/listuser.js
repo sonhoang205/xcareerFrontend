@@ -5,11 +5,18 @@ import Sidebar from "../components/backlog/sidebar";
 import axios from "axios";
 import "./Listuser.scss";
 import ReactPaginate from 'react-paginate';
-
+import Search from "../components/search";
+import "./Search.scss"
 const Listuser = () => {
-  const [list, setList] = useState("");
+  const [lists, setLists] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [totalUser, setTotalUser] = useState("0");
+  // 
+  const [search ,setSearch]= useState('')
+  
+
+
+
 
 const handlePageClick =()=>{}
 
@@ -18,14 +25,18 @@ const handlePageClick =()=>{}
     let res = await axios.get("http://localhost:9090/api/auth/seeusers");
     if (res && res.data && res.data.success === 1) {
     console.log("res",res)
-      setList(res.data);
+      setLists(res.data.data);
       setTotalUser(res.data.length)
     }
   };
   useEffect(() => {
     fetchData();
   }, []);
-  console.log(list);
+
+  const Search=(data)=> {
+    return data.filter((item)=>item.username.includes(search))
+  }
+console.log("new",Search(lists))
 
   return (
     <div className="admin-container">
@@ -42,6 +53,27 @@ const handlePageClick =()=>{}
             {" "}
             List user
           </h1>
+          {/* ////// */}
+          <nav className="navbar  ">
+      <div className="container-fluid" >
+        <form className=" col-5" >
+          <input
+            className="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+            value={search}
+            onChange={(event)=>setSearch(event.target.value)}
+          />
+          <button className="btn btn-outline-success mx"  
+>
+            Search
+          </button>
+        </form>
+      </div>
+    </nav >
+
+            {/* ////  */}
           <table className="table" style={{}}>
             <thead className="thead-dark">
               <tr>
@@ -56,18 +88,19 @@ const handlePageClick =()=>{}
               </tr>
             </thead>
             <tbody>
-              {list.data &&
-                list.data.length > 0 &&
-                list.data.map((item, index) => {
+              {Search(lists) &&
+                Search(lists).length > 0 &&
+                Search(lists).map((list, index) => {
+                  // lists.data.filter((list)=>list.username.includes(search))
                   return (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>
-                      <td>{item._id}</td>
+                      <td>{list._id}</td>
 
-                      <td>{item.username}</td>
-                      <td>{item.password}</td>
-                      <td>{item.name}</td>
-                      <td>{item.createdAt}</td>
+                      <td>{list.username}</td>
+                      <td>{list.password}</td>
+                      <td>{list.name}</td>
+                      <td>{list.createdAt}</td>
                     </tr>
                   );
                 })}

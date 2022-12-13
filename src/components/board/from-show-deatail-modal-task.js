@@ -10,9 +10,12 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import { MdDeleteForever } from "react-icons/md";
 import { IoIosSend } from "react-icons/io";
 import { BsSortDownAlt } from "react-icons/bs";
+import { AiOutlineDelete } from "react-icons/ai";
+
 
 import { useSelector } from "react-redux";
 import Form from 'react-bootstrap/Form';
+import { Award } from "react-bootstrap-icons";
 
 const ShowDeatailTask = (props) => {
     const { show, handleShow, projectId, dataUpdate, todo, inProgress, Done, Cancel ,member } = props;
@@ -169,8 +172,27 @@ const ShowDeatailTask = (props) => {
           
         };
      
-    
+        const handleDeleteComment = async (commentId)=>{
+           console.log("commentId",commentId)
+          
+              let res = await http.delete(
+                `http://localhost:9090/api/comment/${commentId}`,
+              );
+              if (res && res.data.success === 1) {
+              
+                await comments();
+              }
+          
+           
+              
+            };
+         
 
+     const selectAllInLineText =(event)=>{
+          event.target.focus()
+          event.target.select()
+     }
+            
 
     return (
         <>
@@ -210,13 +232,14 @@ const ShowDeatailTask = (props) => {
                          <Form.Control
 
                             type="text"
-                            id="inputEmail4"
+                            // id="inputEmail4"
                             as="textarea"
                             rows="2"
                             style={{marginTop: "20px", fontSize:"30px", borderRadius:"10px" , width:"50%"  ,backgroundColor:"white",border:"none"}}
                             placeholder="Add new description"
                             value={title}
                             onChange={(event) => setTitle(event.target.value)}
+                            onClick={(event) => selectAllInLineText(event)}
                         />
                        </div> : 
                          <Form.Control
@@ -230,6 +253,8 @@ const ShowDeatailTask = (props) => {
                             placeholder="Add new description"
                             value={title}
                             disabled
+                            onClick={(event) => selectAllInLineText(event)}
+
                         />
                         }
   
@@ -343,7 +368,7 @@ const ShowDeatailTask = (props) => {
                                 {member && member.length > 0 &&
                                 member.map((item , index)=>{
                                     return(
-                                        <option>{item.userId}</option>
+                                        <option>{account.username}</option>
 
                                     )
 
@@ -447,7 +472,7 @@ const ShowDeatailTask = (props) => {
                     <img src="https://i.pinimg.com/originals/07/a4/20/07a420f822e2d0624c76efba4fbb0b24.jpg" alt="" />
                     </div>
                      { item.createdById === account.id ?
-                    
+                    <> 
                         <div className="chat-left_text col-md-8">
                         <Form.Control
     
@@ -458,12 +483,13 @@ const ShowDeatailTask = (props) => {
                           disabled
                           />
     
-                        
                          </div>
-
+                        <div className="chat-left_text_icon"  onClick={()=>handleDeleteComment(item._id)}><AiOutlineDelete/></div>
+                        </>
                          :
                             
                    <div className="chat-right col-md-10">
+                    <div className="chat-right_icon" onClick={()=>handleDeleteComment(item._id)}><AiOutlineDelete/></div>
 
 
                       <div className="col-md-8 chat-right_text">
@@ -476,8 +502,9 @@ const ShowDeatailTask = (props) => {
                         value={item.content}
 
                     />
+
                     </div> 
-                
+
                 
                         <div className="chat-right_img" >
 

@@ -215,6 +215,7 @@
         display: flex;
         align-items: center;
         gap :5px;
+   
         .chat-left_img{
             width: 60px;
             height: 50px;
@@ -226,8 +227,16 @@
             }
             
         }
-        .chat-left_text{
+        .chat-left_text{ 
+           
+          
         }
+        .chat-left_text_icon{
+            cursor: pointer;
+             font-size: 20px;
+             color: red;
+        }
+        
     }
     .chat-right{
         margin-left: 290px;
@@ -235,8 +244,14 @@
         align-items: center;
         gap :5px;
         justify-content: flex-end;
+        
+        .chat-right_icon{
+            cursor: pointer;
+            font-size: 20px;
+            color: red;
+        }
         .chat-right_text{
-
+          
         }
         .chat-right_img{
             width: 60px;
@@ -257,6 +272,7 @@
     align-items: center;
     gap: 10px;
     margin-bottom: 20px;
+    
     .chat-input_img{
         width: 70px;
         height: 60px;

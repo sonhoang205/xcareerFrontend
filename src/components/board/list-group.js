@@ -42,33 +42,7 @@ const ListGroup = (props) => {
 
   return (
     <>
-         <div className="invite-member">
-       <button type="button" className="btn button  " >
-        <div >
-          <ImUserPlus /> invite member
-        </div>
-            </button>{" "}
-                       <div className="all-memeber">
-                          <select
-                            className="form-select"
-                                
-                            >
-                        {member && member.length > 0 &&
-                         member.map((item,index)=>{
-                          return(
-                            <option key={index}>{item.userId}</option>
-
-                          )
-                        })
-                        }
-   
-                              
-                         </select>
-
-                               
-      </div>
-
-    </div>
+      
     {/* ///////// */}
       <button type="button" className="btn btn-success button  " onClick={handleShow}>
         <div >
