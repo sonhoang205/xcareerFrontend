@@ -12,13 +12,14 @@ import Homepage from "./components/Home/homepage";
 import Login from "../src/components/Auth/login";
 import Register from "../src/components/Auth/register";
 import Listuser from "../src/components/listuser";
-import Workspaces from "./components/workspace/workspaces";
+import WorkspaceTabs from "./components/workspace/workspacesTabs";
 import WorkspaceDetails from "./components/workspace/detailsworkspace/Details";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import PrivateRouter from "../src/components/routes/PrivateRouter";
 import "nprogress/nprogress.css";
 import { PersistGate } from 'redux-persist/integration/react'
+import Column from "../src/components/board/column"
 
 const NotFound = () => {
   return (
@@ -54,19 +55,19 @@ root.render(
               </PrivateRouter>
             }
           />
-          <Route path="workspace" element={<Workspaces />} />
+          <Route path="WorkspaceTabs" element={<WorkspaceTabs />} />
           <Route path="Profile" element={<WorkspaceDetails />} />
 
           <Route
-            path="workspace/workspacedetails/:id"
+            path="WorkspaceTabs/workspacedetails/:id"
             element={<WorkspaceDetails />}
           />
         </Route>
         <Route path="Backlog" element={<Backlog />} />
 
         <Route
-          path="workspace/workspacedetails/:id/project/:id"
-          element={<Board />}
+          path="WorkspaceTabs/workspacedetails/:id/project/:id"
+          element={<Column  />}
         />
         <Route path="/listuser" element={<Listuser />} />
         <Route path="/login" element={<Login />} />

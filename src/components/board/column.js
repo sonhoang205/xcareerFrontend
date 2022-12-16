@@ -29,7 +29,7 @@ import _ from "lodash";
 const Column = (props) => {
   const params = useParams();
   const location = useLocation();
-  const { projectId } = props
+  const { search} = props
   const [todoColum, setTodocolum] = useState([])
   const [inProgressColumn, setInProgress] = useState([])
   const [doneColumn, setDoneColumn] = useState([])
@@ -53,7 +53,8 @@ const Column = (props) => {
 
 
 
-  const { show, handleShow ,member} = props
+  const {  member ,dataColumn ,show ,handleshow} = props
+const projectId =dataColumn._id
 
 
   const ShowFlagInProgress = () => {
@@ -62,7 +63,6 @@ const Column = (props) => {
   const ShowFlagDone = () => {
     setShowFlagC(!ShowFlagC);
   };
-
 
 
 
@@ -93,6 +93,8 @@ const Column = (props) => {
       `//localhost:9090/api/task?status=To Do&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
+      console.log("datatodo",todoColum)
+
       setTodocolum(data.data.data.tasks)
 
 
@@ -139,21 +141,29 @@ const Column = (props) => {
 //     e.target.focus()
 //     e.target.select()
 // }
-console.log(dataUpdate)
+// console.log(dataUpdate)
   useEffect(() => {
     todo();
     inProgress();
     Done();
     Cancel();
 
-  }, [projectId]);
+  }, [dataColumn]);
 
 
 
   return (
     <>
 
+
+
+    
+
       <div className="column" >
+    
+
+
+
         <div className="column-drag-handle" style={{ backgroundColor: "#F5F5F5" }}>
 
           <div className="title-header"><span style={{ color: "#00EE00", marginRight: "20px" }}><BsFillPencilFill /></span> To Do </div>
@@ -163,7 +173,13 @@ console.log(dataUpdate)
 
 
         {todoColum && todoColum.length > 0 &&
-          todoColum.map((item, index) => {
+          todoColum.filter((Column)=>
+          Column.title.includes(search) || 
+          Column.status.includes(search) 
+
+    
+          ).map((item, index) => {
+            console.log("item",item)
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "#F5F5F5" }}>
@@ -227,7 +243,14 @@ console.log(dataUpdate)
         </div>
         {
           inProgressColumn && inProgressColumn.length > 0 &&
-          inProgressColumn.map((item, index) => {
+          inProgressColumn.filter((Column)=>
+          Column.title.includes(search) || 
+          Column.status.includes(search) ||
+          Column.assignee.includes(search) 
+
+
+    
+          ).map((item, index) => {
             return (
               <>
 
@@ -289,7 +312,14 @@ console.log(dataUpdate)
         </div>
         {
           doneColumn && doneColumn.length > 0 &&
-          doneColumn.map((item, index) => {
+          doneColumn.filter((Column)=>
+          Column.title.includes(search) || 
+          Column.status.includes(search) ||
+          Column.assignee.includes(search) 
+
+
+    
+          ).map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "olive" }}>
@@ -346,7 +376,14 @@ console.log(dataUpdate)
         </div>
         {
           cancelColumn && cancelColumn.length > 0 &&
-          cancelColumn.map((item, index) => {
+          cancelColumn.filter((Column)=>
+          Column.title.includes(search) || 
+          Column.status.includes(search) ||
+          Column.assignee.includes(search) 
+
+
+    
+          ).map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "palevioletred" }}>
@@ -408,7 +445,7 @@ console.log(dataUpdate)
 
 
       </div >
-      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member}/>
+      <Example show={show} handleshow={handleshow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member}/>
       <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
       <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} member={member}/>

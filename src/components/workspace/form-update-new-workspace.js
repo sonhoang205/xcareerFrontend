@@ -6,26 +6,24 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import _ from "lodash";
 import http from "../../http-common";
-
+import {UpdateWorkspaces} from "../util/apiService"
 function UpdateWorkspace(props) {
-  const { HandleShowUpdate, setHandleShowUpdate, Update, fetchData } = props;
-  //   console.log(dataUpdate);
+  const { showUpdate, handleChangeUpdateWorkspace, dataUpdate, fetchData } = props;
+    // console.log("dataUpdate",dataUpdate);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
 
   const [type, setType] = useState("Choose");
   useEffect(() => {
-    if (!_.isEmpty(Update)) {
-      setName(Update.name);
-      setType(Update.type);
-      setId(Update._id);
+    if (!_.isEmpty(dataUpdate)) {
+      setName(dataUpdate.name);
+      setType(dataUpdate.type);
+      setId(dataUpdate._id);
     }
-  }, [Update]);
-  console.log("Update", Update);
+  }, [dataUpdate]);
   const handleUpdateWorkSpace = async () => {
     let data = {
       name: name,
-      type: type,
     };
     let res = await http.put(
       `http://localhost:9090/api/workspace/${id}`,
@@ -37,7 +35,7 @@ function UpdateWorkspace(props) {
       toast.success("update new workspace success");
       setName("");
       setType("");
-      setHandleShowUpdate();
+      handleChangeUpdateWorkspace();
       await fetchData();
     }
     if (res && res.data.success === 0) {
@@ -47,7 +45,7 @@ function UpdateWorkspace(props) {
   };
   return (
     <>
-      <Modal show={HandleShowUpdate} onHide={setHandleShowUpdate} size="l">
+      <Modal show={showUpdate} onHide={handleChangeUpdateWorkspace} size="l">
         <Modal.Header closeButton>
           <Modal.Title>Update Workspace</Modal.Title>
         </Modal.Header>
@@ -78,7 +76,7 @@ function UpdateWorkspace(props) {
                 disabled
               />
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <label for="inputPassword4" className="form-label">
                 Type
               </label>
@@ -101,12 +99,12 @@ function UpdateWorkspace(props) {
                 <option>Software Development</option>
                 <option>Other</option>
               </select>
-            </div>
+            </div> */}
             <div className="col-md-12"></div>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={setHandleShowUpdate}>
+          <Button variant="secondary" onClick={handleChangeUpdateWorkspace}>
             Close
           </Button>
           <Button variant="primary" onClick={handleUpdateWorkSpace}>

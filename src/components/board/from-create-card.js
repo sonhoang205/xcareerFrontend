@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
 
 const Example = (props) => {
-    const { show, handleShow, projectId, todo, inProgress, Done, Cancel ,member} = props;
+    const { show, handleshow, projectId, todo, inProgress, Done, Cancel ,member} = props;
     const [title, setTitle] = useState("");
     const [description, setdescription] = useState("");
     const [status, setstatus] = useState("To Do");
@@ -24,7 +24,6 @@ const Example = (props) => {
             assignee: assignee,
             reporter: reporter,
         };
-        console.log("dataCreate",);
 
         let res = await http.post(
             "http://localhost:9090/api/task/create",
@@ -43,7 +42,7 @@ const Example = (props) => {
             setdescription("");
             setAssignee("");
             setReporter("");
-            handleShow();
+            handleshow();
             await todo();
             await inProgress();
             await Done();
@@ -60,7 +59,7 @@ const Example = (props) => {
 
     return (
         <>
-            <Modal show={show} onHide={handleShow} size="xl">
+            <Modal show={show} onHide={handleshow} size="xl">
                 <Modal.Header closeButton>
                     <Modal.Title> create new card</Modal.Title>
                 </Modal.Header>
@@ -139,7 +138,7 @@ const Example = (props) => {
                     </form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleShow}>
+                    <Button variant="secondary" onClick={handleshow}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleCreatcard}>

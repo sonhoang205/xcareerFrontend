@@ -4,25 +4,16 @@ import Modal from "react-bootstrap/Modal";
 import axios from "axios";
 import { toast } from "react-toastify";
 import http from "../../http-common";
-
+import {creatNewWorkSpace} from "../util/apiService"
 function Example(props) {
-  const { view, handleCloseView, fetchData } = props;
+  const { view, handleShowView, fetchData } = props;
 
   const [name, setName] = useState("");
 
   const [type, setType] = useState("Choose");
 
   const handleCreatWorkSpace = async () => {
-    let data = {
-      name: name,
-      type: type,
-    };
-    console.log(data);
-
-    let res = await http.post(
-      "http://localhost:9090/api/workspace/create",
-      data
-    );
+ let res = await creatNewWorkSpace(name )
     if (!name) {
       toast.error("please enter name");
       return;
@@ -32,7 +23,7 @@ function Example(props) {
       toast.success("create new workspace success");
       setName("");
       setType("");
-      handleCloseView();
+      handleShowView();
       await fetchData();
     }
 
@@ -43,7 +34,7 @@ function Example(props) {
   };
   return (
     <>
-      <Modal show={view} onHide={handleCloseView} size="l">
+      <Modal show={view} onHide={handleShowView} size="l">
         <Modal.Header closeButton>
           <Modal.Title>New Workspace</Modal.Title>
         </Modal.Header>
@@ -61,7 +52,7 @@ function Example(props) {
                 onChange={(event) => setName(event.target.value)}
               />
             </div>
-
+{/* 
             <div className="col-md-12">
               <label for="inputPassword4" className="form-label">
                 Type
@@ -85,12 +76,12 @@ function Example(props) {
                 <option>Software Development</option>
                 <option>Other</option>
               </select>
-            </div>
+            </div> */}
             <div className="col-md-12"></div>
           </form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleCloseView}>
+          <Button variant="secondary" onClick={handleShowView}>
             Close
           </Button>
           <Button variant="primary" onClick={handleCreatWorkSpace}>

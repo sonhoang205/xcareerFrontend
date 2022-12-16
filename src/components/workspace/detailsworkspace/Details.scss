@@ -1,23 +1,134 @@
-.detail-workspace {
-    .header {
-        .heade-up {
-            h1 {
-                color: red;
-                font-size: 50px;
-                margin-top: 30px;
-                margin-bottom: 30px;
-            }
-            h2 {
-                margin-bottom: 30px;
-            }
+.detail-workspace_all {
+
+//    border: 1px dashed black;
+   .Search{
+
+    }
+
+   .detail-workspace{
+
+    margin-top: 20px;
+    width: 100%;  
+    height: 85.5vh;
+     background: linear-gradient(269.88deg, #87cbfa 6.75%, #fadf93 95.85%);
+     display: flex;
+    justify-content: center;
+    // align-items: center;
+    gap: 30px;
+    .detail-workspace_projects{
+        flex: 20%;
+        display: flex;
+        flex-direction: column;
+        background-color: #DCDCDC;
+        overflow: auto;
+        &::-webkit-scrollbar {
+            -webkit-appearance: none;
         }
-        .heade-down {
+        &::-webkit-scrollbar:horizontal {
+            height: 11px;
+        }
+        &::-webkit-scrollbar-thumb {
+            background-color: rgba(255, 255, 255, .24);
+            border-radius: 8px;
+        }
+        .all-project-title{
+            font-size: 30px;
+            height: 60px;
+             width: 100%;
+             background-color: #9370DB;
+             color: #FFFFE0;
+             display: flex;
+             justify-content: center;
+           
+
+        }
+        .btn-creat-project{
+            height: 50px;    
+            width: 80px;  
+            margin: 10px 5%;     
+            background-color: #F0FFFF;
+            border-radius: 10px;
+             display: flex;
+             justify-content: center;
+             margin-top: 10px;
+             box-shadow: rgba(0, 0, 0, 0.25) 0px 14px 28px, rgba(0, 0, 0, 0.22) 0px 10px 10px;             margin-bottom: 20px;
+           cursor: pointer;
+             // background: linear-gradient(269.88deg, #87cbfa 6.75%, #fadf93 95.85%);
+             .icon{
+                font-size: 50px;
+                display: flex;
+
+             }
+        }
+        
+        .all-project-body{
             display: flex;
             align-items: center;
-            justify-content: flex-start;
-            flex-direction: row;
-            flex-wrap: wrap;
-            gap: 30px
-        }
+            border-radius: 20px;
+            margin-bottom: 20px;
+            margin-left: 10px;
+            margin-right: 10px;     
+            background-color: white; 
+          
+
+          .all-project-body_img{
+            width: 10px;
+            height: 90px;
+            flex: 30%;
+            img{
+                width: 100%;
+                height: 100%;
+                border-top-left-radius: 20px;
+                border-bottom-left-radius: 20px;
+
+            }
+          }
+          .all-project-body{
+            border: none;
+            display: flex;
+            flex-direction: column;
+            height: 70px;
+            flex: 70%;
+            overflow: hidden;
+             .text{
+                font-weight: 700;
+                width: 100%;
+                font-size: 25px;
+                cursor: pointer;
+                overflow: hidden;
+                text-overflow: ellipsis; 
+            }
+            .type-option{
+                font-weight: 200;
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                .option{
+                  span{
+                    margin-right: 10px;
+                    font-size: 20px;
+                    cursor: pointer;
+                  }
+                }
+
+            }
+
+          }
+          
+    
     }
+    }
+    .detail-workspace_project{
+        flex: 80%;
+        display: flex;
+        flex-direction: column;
+        .create-new-card{
+            margin-top: 12px;
+        }
+      .total-column{
+        display: flex;
+      }
+    }
+   }
 }

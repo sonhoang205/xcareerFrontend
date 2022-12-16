@@ -13,7 +13,7 @@ import { ImUserPlus } from "react-icons/im";
 import http from "../../http-common";
 
 const ListGroup = (props) => {
-
+  const {search , setSearch} = props
   const params = useParams();
   const location = useLocation();
   const projectId = params.id;
@@ -53,7 +53,7 @@ const ListGroup = (props) => {
 
       <div className="board-content">
 
-        <Column projectId={projectId} handleShow={handleShow} show={show} member={member} />
+        <Column projectId={projectId} handleShow={handleShow} show={show} member={member} search={search} />
 
 
       </div>

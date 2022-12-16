@@ -33,10 +33,12 @@ const handlePageClick =()=>{}
     fetchData();
   }, []);
 
-  const Search=(data)=> {
-    return data.filter((item)=>item.username.includes(search))
-  }
-console.log("new",Search(lists))
+
+//   const keyWord = ["_id","username" ,"name",""]
+//   const Search=(data)=> {
+//     return data.filter((item)=>item.username.includes(search))
+//   }
+// console.log("new",Search(lists))
 
   return (
     <div className="admin-container">
@@ -65,10 +67,7 @@ console.log("new",Search(lists))
             value={search}
             onChange={(event)=>setSearch(event.target.value)}
           />
-          <button className="btn btn-outline-success mx"  
->
-            Search
-          </button>
+          
         </form>
       </div>
     </nav >
@@ -88,10 +87,15 @@ console.log("new",Search(lists))
               </tr>
             </thead>
             <tbody>
-              {Search(lists) &&
-                Search(lists).length > 0 &&
-                Search(lists).map((list, index) => {
-                  // lists.data.filter((list)=>list.username.includes(search))
+              {lists &&
+                lists.length > 0 &&
+                lists.filter((list)=>
+                list.username.includes(search) ||
+                list._id.includes(search)||
+                list.name.includes(search)||
+                list.createdAt.includes(search)
+
+                ).map((list, index) => {
                   return (
                     <tr key={index}>
                       <th scope="row">{index + 1}</th>

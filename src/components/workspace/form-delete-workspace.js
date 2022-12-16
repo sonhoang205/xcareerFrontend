@@ -4,18 +4,16 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../http-common";
-
+import {DeleteWorkSpace} from "../util/apiService"
 const Delete=(props)=> {
-  const { HandleShowDelete, setHandleShowDelete, dataDelete, fetchData } =
+  const { showDelete, handleDeleteWorkspace, dataDelete, fetchData } =
     props;
   const handleDeleteWorkSpace = async () => {
-    let res = await http.delete(
-      `http://localhost:9090/api/workspace/${dataDelete._id} `
-    );
+    let res = await DeleteWorkSpace(dataDelete.id)
     if (res && res.data.success === 1) {
       console.log("res", res);
       toast.success("delete  workspace success");
-      setHandleShowDelete();
+      handleDeleteWorkspace();
       await fetchData();
     }
     if (res && res.data.success === 0) {
@@ -26,8 +24,8 @@ const Delete=(props)=> {
   return (
     <>
       <Modal
-        show={HandleShowDelete}
-        onHide={setHandleShowDelete}
+        show={showDelete}
+        onHide={handleDeleteWorkspace}
         animation={false}
         backdrop="static"
       >
@@ -48,7 +46,7 @@ const Delete=(props)=> {
         )}
 
         <Modal.Footer>
-          <Button variant="secondary" onClick={setHandleShowDelete}>
+          <Button variant="secondary" onClick={handleDeleteWorkspace}>
             Exit
           </Button>
           <Button variant="primary" onClick={handleDeleteWorkSpace}>

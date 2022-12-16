@@ -32,7 +32,7 @@ const Header = () => {
   };
 
   const handleLogout =()=>{
-    // localStorage.removeItem('user');
+    localStorage.removeItem('user');
     dispatch(dologout())
   
    }
@@ -51,7 +51,7 @@ const Header = () => {
               {" "}
               Home
             </NavLink>
-            <NavLink to="/workspace" className="nav-link">
+            <NavLink to="/WorkspaceTabs" className="nav-link">
               Workspace{" "}
             </NavLink>
             {/* <NavLink to="/Backlog" className="nav-link">

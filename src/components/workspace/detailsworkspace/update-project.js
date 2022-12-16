@@ -16,7 +16,6 @@ const UpdateProject = (props) => {
   const [name, setName] = useState("");
   const [type, setType] = useState("Choose");
   const [id, setId] = useState("");
-  console.log(name);
   useEffect(() => {
     if (!_.isEmpty(update)) {
       setName(update.name);
@@ -92,8 +91,8 @@ const UpdateProject = (props) => {
                 onChange={(event) => setType(event.target.value)}
               >
                 <option>Choose</option>
-                <option>Kanban software development</option>
-                <option>Basic software development</option>
+                <option>Kanban software </option>
+                <option>Basic software </option>
                 <option>Task management</option>
                 <option>Project management</option>
                 <option>Process management</option>
