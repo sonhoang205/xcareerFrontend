@@ -1,9 +1,10 @@
+
+
+
 .container-workspace{
     background-color: #9FB6CD;
-    height: 90vh;
-    margin-top: 10px;
-    width: 100vw;
-    border-radius: 20px;
+    height: 93vh;
+    width: 100%;
     overflow: auto;
     &::-webkit-scrollbar {
         -webkit-appearance: none;
@@ -53,7 +54,6 @@
             height: 110px;
             width: 400px;
             border-radius: 10px;
-            border: 1px solid black;
             background-color: #C6E2FF;
             .workspace-body-card_img{
                 width: 200px;

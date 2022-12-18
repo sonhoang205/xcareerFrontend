@@ -19,7 +19,8 @@ const Admin = () => {
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
-        <Sidebar collapsed={collapsed} />
+        <Sidebar collapsed={collapsed} 
+        />
       </div>
       <div className="admin-content">
         <FaBars

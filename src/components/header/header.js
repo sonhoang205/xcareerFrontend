@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 import Example from "../header/profile-modal";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import {dologout} from "../../redux/action/userAction"
+import { dologout } from "../../redux/action/userAction"
+
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -31,11 +32,13 @@ const Header = () => {
     navigate("/register");
   };
 
-  const handleLogout =()=>{
+  const handleLogout = () => {
     localStorage.removeItem('user');
     dispatch(dologout())
-  
-   }
+    navigate("/");
+
+
+  }
 
   return (
     <Navbar bg="light" expand="lg">
@@ -47,44 +50,44 @@ const Header = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <NavLink to="/" className="nav-link">
+            <NavLink to="/" className="nav-link" >
               {" "}
               Home
             </NavLink>
-            <NavLink to="/WorkspaceTabs" className="nav-link">
+            <NavLink to="/Workspace" className="nav-link" >
               Workspace{" "}
             </NavLink>
             {/* <NavLink to="/Backlog" className="nav-link">
               Backlog
             </NavLink> */}
-            <NavLink to="/listuser" className="nav-link">
+            <NavLink to="/listuser" className="nav-link" >
               List User
             </NavLink>
           </Nav>
           <Nav>
-            { islogin===false 
-            ? (
-              <>
-                <button className="btn-login" onClick={() => handleLogin()}>
-                  {" "}
-                  Log in
-                </button>
-                <button className="btn-Signup" onClick={() => handleRegister()}>
-                  {" "}
-                  Sign up
-                </button>
-              </>
-            ) : (
-              <NavDropdown
-                title={`hi , ${account.username}`}
-                id="basic-nav-dropdown"
-              >
-                <NavDropdown.Item onClick={() => handleShowProfile(account)}>
-                  Profile
-                </NavDropdown.Item>
-                <NavDropdown.Item  onClick={()=>handleLogout()}>Log Out</NavDropdown.Item>
-              </NavDropdown>
-            )}
+            {islogin === false
+              ? (
+                <>
+                  <button className="btn-login" onClick={() => handleLogin()}>
+                    {" "}
+                    Log in
+                  </button>
+                  <button className="btn-Signup" onClick={() => handleRegister()}>
+                    {" "}
+                    Sign up
+                  </button>
+                </>
+              ) : (
+                <NavDropdown
+                  title={`hi , ${account.username}`}
+                  id="basic-nav-dropdown"
+                >
+                  <NavDropdown.Item onClick={() => handleShowProfile(account)}>
+                    Profile
+                  </NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => handleLogout()}>Log Out</NavDropdown.Item>
+                </NavDropdown>
+              )}
           </Nav>
         </Navbar.Collapse>
       </Container>
@@ -93,7 +96,7 @@ const Header = () => {
         handleShowProfile={handleShowProfile}
         profile={profile}
       />
-   
+
     </Navbar>
   );
 };

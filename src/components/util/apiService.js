@@ -1,19 +1,19 @@
 import http from "../../http-common"
 
-const renderAllWorkSpace = ()=>{
+const renderAllWorkSpace = () => {
     return http.get("workspace/");
 }
 
-const creatNewWorkSpace = (name)=>{
+const creatNewWorkSpace = (name) => {
     let data = {
         name: name,
-      };
-      console.log(data);
+    };
+    console.log(data);
     return http.post("workspace/create", data);
 }
 
-const DeleteWorkSpace = (id)=>{
-   
+const DeleteWorkSpace = (id) => {
+
     return http.delete(`workspace/${id}`);
 }
 
@@ -28,16 +28,41 @@ const DeleteWorkSpace = (id)=>{
 //       );
 // }
 
-const dataAssign =(id)=>{
+const dataAssign = (id) => {
     return http.get(`member/userId/${id}`);
 
 }
 
 
-const renderWorkspace = (id)=>{
+const renderWorkspace = (id) => {
     return http.get(
         `http://localhost:9090/api/project?workspaceId=${id}`
-      );
+    );
 }
 
-export{renderAllWorkSpace ,creatNewWorkSpace ,DeleteWorkSpace , dataAssign ,renderWorkspace}
+
+const listUser = (id) => {
+    return http.get("http://localhost:9090/api/auth/seeusers")
+}
+
+
+const creatMem = (projectId, userId) => {
+    let dataCreate = {
+        projectId: projectId,
+        userId: userId,
+
+    };
+    return http.post(
+        `http://localhost:9090/api/member/add`,
+        dataCreate
+    );
+}
+
+
+const renderAllMemInProject = (id) => {
+    return http.get(
+        `http://localhost:9090/api/member/projectId/${id}`
+    );
+
+}
+export { renderAllWorkSpace, creatNewWorkSpace, DeleteWorkSpace, dataAssign, renderWorkspace, listUser, creatMem, renderAllMemInProject }

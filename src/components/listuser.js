@@ -7,24 +7,26 @@ import "./Listuser.scss";
 import ReactPaginate from 'react-paginate';
 import Search from "../components/search";
 import "./Search.scss"
+import { listUser } from "./util/apiService"
+
 const Listuser = () => {
   const [lists, setLists] = useState("");
   const [collapsed, setCollapsed] = useState(false);
   const [totalUser, setTotalUser] = useState("0");
   // 
-  const [search ,setSearch]= useState('')
-  
+  const [search, setSearch] = useState('')
 
 
 
 
-const handlePageClick =()=>{}
+
+  const handlePageClick = () => { }
 
 
   const fetchData = async () => {
-    let res = await axios.get("http://localhost:9090/api/auth/seeusers");
+    let res = await listUser();
     if (res && res.data && res.data.success === 1) {
-    console.log("res",res)
+      console.log("res", res)
       setLists(res.data.data);
       setTotalUser(res.data.length)
     }
@@ -34,11 +36,11 @@ const handlePageClick =()=>{}
   }, []);
 
 
-//   const keyWord = ["_id","username" ,"name",""]
-//   const Search=(data)=> {
-//     return data.filter((item)=>item.username.includes(search))
-//   }
-// console.log("new",Search(lists))
+  //   const keyWord = ["_id","username" ,"name",""]
+  //   const Search=(data)=> {
+  //     return data.filter((item)=>item.username.includes(search))
+  //   }
+  // console.log("new",Search(lists))
 
   return (
     <div className="admin-container">
@@ -57,22 +59,22 @@ const handlePageClick =()=>{}
           </h1>
           {/* ////// */}
           <nav className="navbar  ">
-      <div className="container-fluid" >
-        <form className=" col-5" >
-          <input
-            className="form-control me-2"
-            type="search"
-            placeholder="Search"
-            aria-label="Search"
-            value={search}
-            onChange={(event)=>setSearch(event.target.value)}
-          />
-          
-        </form>
-      </div>
-    </nav >
+            <div className="container-fluid" >
+              <form className=" col-5" >
+                <input
+                  className="form-control me-2"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                  value={search}
+                  onChange={(event) => setSearch(event.target.value)}
+                />
 
-            {/* ////  */}
+              </form>
+            </div>
+          </nav >
+
+          {/* ////  */}
           <table className="table" style={{}}>
             <thead className="thead-dark">
               <tr>
@@ -89,11 +91,11 @@ const handlePageClick =()=>{}
             <tbody>
               {lists &&
                 lists.length > 0 &&
-                lists.filter((list)=>
-                list.username.includes(search) ||
-                list._id.includes(search)||
-                list.name.includes(search)||
-                list.createdAt.includes(search)
+                lists.filter((list) =>
+                  list.username.includes(search) ||
+                  list._id.includes(search) ||
+                  list.name.includes(search) ||
+                  list.createdAt.includes(search)
 
                 ).map((list, index) => {
                   return (
@@ -109,27 +111,27 @@ const handlePageClick =()=>{}
                   );
                 })}
             </tbody>
-         
+
           </table>
           <ReactPaginate
-        breakLabel="..."
-        nextLabel="next >"
-        onPageChange={handlePageClick}
-        pageRangeDisplayed={5}
-        pageCount={3}
-        previousLabel="< previous"
-        pageClassName="page-item"
-        pageLinkClassName="page-link"
-        previousClassName="page-item"
-        previousLinkClassName="page-link"
-        nextClassName="page-item"
-        nextLinkClassName="page-link"
-        breakClassName="page-item"
-        breakLinkClassName="page-link"
-        containerClassName="pagination"
-        activeClassName="active"
-        
-      />
+            breakLabel="..."
+            nextLabel="next >"
+            onPageChange={handlePageClick}
+            pageRangeDisplayed={5}
+            pageCount={3}
+            previousLabel="< previous"
+            pageClassName="page-item"
+            pageLinkClassName="page-link"
+            previousClassName="page-item"
+            previousLinkClassName="page-link"
+            nextClassName="page-item"
+            nextLinkClassName="page-link"
+            breakClassName="page-item"
+            breakLinkClassName="page-link"
+            containerClassName="pagination"
+            activeClassName="active"
+
+          />
         </div>
       </div>
     </div>

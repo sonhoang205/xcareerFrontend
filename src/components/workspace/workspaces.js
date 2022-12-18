@@ -7,6 +7,7 @@ import { TbAlignJustified } from "react-icons/tb";
 import Dropdown from 'react-bootstrap/Dropdown';
 import { AiOutlinePlusCircle } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import Sidebar from "../backlog/sidebar";
 
 import "./workspacesTabs.scss";
 import {renderAllWorkSpace} from "../util/apiService";
@@ -16,12 +17,15 @@ import WorkspaceDetails from "../workspace/detailsworkspace/Details";
 import Delete from "../workspace/form-delete-workspace";
 import {dataAssign} from "../util/apiService"
 import { assign } from "lodash";
-const WorkspaceTabs = (props) => {
+import { FaBars } from "react-icons/fa";
+
+const Workspaces = (props) => {
   const navigate = useNavigate();
   const islogin = useSelector((state) => state.user.islogin);
   const account = useSelector((state) => state.user.account);
   const [listWorkspace, setListWorkspace] = useState("");
   const [listWorkspaceAsign, setListWorkspaceAsign] = useState("");
+  const [collapsed, setCollapsed] = useState(false);
 
    const [show, setShow] = useState(false);
    const [showDelete, setShowDelete] = useState(false);
@@ -83,6 +87,7 @@ const WorkspaceTabs = (props) => {
     if (resapi && resapi.data && resapi.data.success === 1) {
 
       setListWorkspaceAsign(resapi.data.data);
+      console.log("resapi",resapi)
     }
   };
 
@@ -92,7 +97,18 @@ const WorkspaceTabs = (props) => {
 
 
   return (
-    <div className="container container-workspace">
+   
+    <div className="admin-container">
+    <div className="admin-sidebar">
+      <Sidebar collapsed={collapsed} />
+    </div>
+    <div className="admin-content">
+     
+     <div className="container container-workspace">
+     <FaBars
+        className="admin-header-icon"
+        onClick={() => setCollapsed(!collapsed)}
+      />
       { status === true ? 
       <> 
       <div className="workspace-nav">
@@ -100,17 +116,7 @@ const WorkspaceTabs = (props) => {
       <div className="assign-workspace" onClick={() => handleChangeWorkspaceAsign()}> Workspace assign to me</div>
       
     </div>
-    {/* <div
-      className="btn btn-success button"
-      style={{
-        marginLeft: "40px",
-        marginTop: "30px",
-      }}
-      onClick={handleShow}
-    >
-      <AiOutlinePlusCircle /> create New WorkSpace
-    </div> */}
-   
+ 
     <div className="workspace-body">
     {listWorkspaceAsign && listWorkspaceAsign.length > 0 &&
     listWorkspaceAsign.map((item,index)=>{
@@ -122,7 +128,7 @@ const WorkspaceTabs = (props) => {
         </div>
         <div className="workspace-body-card_title"  >
           <div className="text" onClick={() =>
-                          navigate(`workspacedetails/${item.workspaceId}`, {
+                          navigate(`workspacedetails/${item.workspaceId}/project/${item._id}`, {
                             state: { nameWorkSpace: item.name , idWorkSpace :item._id },
                           })
                         }>{item.name}</div>
@@ -246,7 +252,12 @@ const WorkspaceTabs = (props) => {
       }
       
    </div>
+
+    </div>
+  </div>
+    
   );
+
 };
 
-export default WorkspaceTabs;
+export default Workspaces;

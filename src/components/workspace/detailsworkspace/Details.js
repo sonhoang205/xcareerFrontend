@@ -16,9 +16,12 @@ import {renderWorkspace} from "../../util/apiService"
 import Dropdown from 'react-bootstrap/Dropdown';
 import ProjectList from "../detailsworkspace/project-list"
 import { AiFillDelete } from "react-icons/ai";
+import Sidebar from "../../backlog/sidebar";
+import { FaBars } from "react-icons/fa";
 
 const WorkspaceDetails = (props) => {
   const navigate = useNavigate();
+  const [collapsed, setCollapsed] = useState(false);
 
   const params = useParams();
   const location = useLocation();
@@ -59,13 +62,12 @@ const WorkspaceDetails = (props) => {
 
 
   const workspaceId = params.id;
-  // console.log(workspaceId);
+  console.log(workspaceId);
   const [project, setProject] = useState([]);
   const abc = async () => {
     let data = await renderWorkspace(workspaceId)
     if (data && data.data && data.data.success === 1) {
       setProject(data.data.data.projects);
-      console.log("project",project)
     }
   };
   useEffect(() => {
@@ -73,6 +75,17 @@ const WorkspaceDetails = (props) => {
   }, [workspaceId]);
 
   return (
+    <div className="admin-container">
+    <div className="admin-sidebar">
+      <Sidebar collapsed={collapsed} />
+    </div>
+    <div className="admin-content">
+     
+     <div className="container container-workspace">
+     <FaBars
+        className="admin-header-icon"
+        onClick={() => setCollapsed(!collapsed)}
+      />
     <div className="detail-workspace_all ">
         <div className="Search">
             <nav className="navbar  ">
@@ -95,67 +108,49 @@ const WorkspaceDetails = (props) => {
       <div className="detail-workspace">
        
       <div className="detail-workspace_projects">
-    <div className="all-project-title"> Project List</div>
-        <div className=" btn-creat-project"> 
-    <div className="icon" onClick={handleShow}><FcPlus/> </div>
-   </div>
-     {project && project.length>0 && 
+         <div className="all-project-title"> Project List</div>
+         <div className=" btn-creat-project"> 
+         <div className="icon" onClick={handleShow}><FcPlus/> </div>
+      </div>
+    
+       <div className="all-project-list">
+       {project && project.length>0 && 
         project.map((item ,index)=>{
-  return(
-    <>
-    
-   <div className="all-project-body"> 
-      <div className="all-project-body_img">
-        <img src="https://miro.medium.com/max/1400/1*y6C4nSvy2Woe0m7bWEn4BA.png" alt="" />
-      </div>
-      <div className="all-project-body">
-      <div className="text" onClick={() => handleshowColumn(item)}>
-        {item.name}
-      </div>
-      <div className="type-option">
-        <div className="type"> type :   {item.type}</div>
-        <div className="option"> 
-       <span style={{color :"#3333CC"}} onClick={() => handleShowUpdateModal(item)}><AiFillEdit/></span>
-       <span style={{color :"red"}} onClick={() => handleShowDeleteModal(item)}><AiFillDelete/></span>
-
-        </div>
-
-      </div>
-    
-      </div>
-      </div>
-
-    </>
-   
+       return(
+            <div className="project-details">
+              <div className="project-details-img">
+                <img src="https://miro.medium.com/max/1400/1*y6C4nSvy2Woe0m7bWEn4BA.png" alt="" />
+              </div>
+              <div className="project-details-title">
+                <div className="text" onClick={() =>
+                          navigate(`project/${item._id}`, {
+                            state: { nameWorkSpace: item.name },
+                          })
+                        }>{item.name}</div>
+                <div className="type-option">
+                <div className="type">type : {item.type}</div>
+                 <div className="option">
+                    <span style={{color :"#3333CC"}} onClick={() => handleShowUpdateModal(item)}><AiFillEdit/></span>
+                    <span style={{color :"red"}} onClick={() => handleShowDeleteModal(item)}><AiFillDelete/></span>
+                  </div>
+              </div>
+            </div>
+              </div>
   )
-       })
-       }       
+})
+}
+            
+         </div>
 
-   
 
-
+    </div>
+     
+    
+  </div>
 
 
 </div>     
-        <div className="detail-workspace_project">
-
-            {showColumn ==true &&
-            <>
-        <div className="create-new-card">
-           <button type="button" className="btn btn-success " onClick={() => handleShowCreateCard()}>
-          <AiOutlinePlusCircle />  create New card
-         </button>{" "}
-      
-          
-        </div>
-         <div className="total-column">
-          <Column dataColumn={dataColumn} handleshow={handleShowCreateCard} show={ShowCreateCard} search={search}/>
-
-         </div>
-         </>
-}
-         
-        </div>
+       
 
          </div>
          <Example show={show} handleShow={handleShow} dataParam={abc} />
@@ -173,6 +168,10 @@ const WorkspaceDetails = (props) => {
         />
 
     </div>
+    </div>
+
+
+
   );
 };
 

@@ -5,7 +5,6 @@ import { AiOutlinePlusCircle } from "react-icons/ai";
 import Dropdown from "react-bootstrap/Dropdown";
 import { useState, useEffect } from "react";
 import { useParams, useLocation } from "react-router-dom";
-import axios from "axios";
 import http from "../../http-common";
 import DropdownButton from "react-bootstrap/Dropdown";
 import { GiWalk } from "react-icons/gi";
@@ -29,7 +28,7 @@ import _ from "lodash";
 const Column = (props) => {
   const params = useParams();
   const location = useLocation();
-  const { search} = props
+  const { projectId } = props
   const [todoColum, setTodocolum] = useState([])
   const [inProgressColumn, setInProgress] = useState([])
   const [doneColumn, setDoneColumn] = useState([])
@@ -53,22 +52,13 @@ const Column = (props) => {
 
 
 
-  const {  member ,dataColumn ,show ,handleshow} = props
-const projectId =dataColumn._id
+  const { show, handleShow, member } = props
 
 
-  const ShowFlagInProgress = () => {
-    setShowFlagIP(!ShowFlagIP);
-  };
+
   const ShowFlagDone = () => {
     setShowFlagC(!ShowFlagC);
   };
-
-
-
-
-
-
   const ShowDeatailmodalTask = (user) => {
     setShowDetailModal(!showDetailModal);
     setDataUpdate(user);
@@ -93,8 +83,6 @@ const projectId =dataColumn._id
       `//localhost:9090/api/task?status=To Do&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
-      console.log("datatodo",todoColum)
-
       setTodocolum(data.data.data.tasks)
 
 
@@ -137,18 +125,17 @@ const projectId =dataColumn._id
 
 
 
-// const seclectAllText = (e)=>{
-//     e.target.focus()
-//     e.target.select()
-// }
-// console.log(dataUpdate)
+  // const seclectAllText = (e)=>{
+  //     e.target.focus()
+  //     e.target.select()
+  // }
   useEffect(() => {
     todo();
     inProgress();
     Done();
     Cancel();
 
-  }, [dataColumn]);
+  }, [projectId]);
 
 
 
@@ -157,13 +144,7 @@ const projectId =dataColumn._id
 
 
 
-    
-
       <div className="column" >
-    
-
-
-
         <div className="column-drag-handle" style={{ backgroundColor: "#F5F5F5" }}>
 
           <div className="title-header"><span style={{ color: "#00EE00", marginRight: "20px" }}><BsFillPencilFill /></span> To Do </div>
@@ -173,13 +154,7 @@ const projectId =dataColumn._id
 
 
         {todoColum && todoColum.length > 0 &&
-          todoColum.filter((Column)=>
-          Column.title.includes(search) || 
-          Column.status.includes(search) 
-
-    
-          ).map((item, index) => {
-            console.log("item",item)
+          todoColum.map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "#F5F5F5" }}>
@@ -188,33 +163,33 @@ const projectId =dataColumn._id
                     <div className="card-item_header"  >
                       <div className="title">
                         <div
-                      
+
                           type="text"
                           className="form-control edit-title"
                           //  onChange={(event) => setTitle(event.target.value)}
                           //  onBlur={(event) => setTaskTitle(event.target.value)}
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                          </div>
+                        </div>
                         <span className="icon"> <Dropdown>
-                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
-                      
-                       <Dropdown.Menu>
+                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown></span> 
+                          <Dropdown.Menu>
+
+                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown></span>
+
+                      </div>
+
+                      <div className="status">
+                        <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                          To Do
+
 
                         </div>
-                      
-                      <div className="status">
-                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
-                       To Do
 
-                       
-                      </div>
-                     
 
-                       <span className="user"><FaUser/></span> 
+                        <span className="user"><FaUser /></span>
                       </div>
                     </div>
 
@@ -243,51 +218,44 @@ const projectId =dataColumn._id
         </div>
         {
           inProgressColumn && inProgressColumn.length > 0 &&
-          inProgressColumn.filter((Column)=>
-          Column.title.includes(search) || 
-          Column.status.includes(search) ||
-          Column.assignee.includes(search) 
-
-
-    
-          ).map((item, index) => {
+          inProgressColumn.map((item, index) => {
             return (
               <>
 
                 <ul className="card-list" key={index} style={{ backgroundColor: "palegoldenrod" }}>
 
                   <li>
-                  <div className="card-item_header"  >
+                    <div className="card-item_header"  >
                       <div className="title">
                         <div
-                      
+
                           type="text"
                           className="form-control edit-title"
                           //  onChange={(event) => setTitle(event.target.value)}
                           //  onBlur={(event) => setTaskTitle(event.target.value)}
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                          </div>
+                        </div>
                         <span className="icon"> <Dropdown>
-                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
-                      
-                       <Dropdown.Menu>
+                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown></span> 
+                          <Dropdown.Menu>
+
+                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown></span>
+
+                      </div>
+
+
+                      <div className="status">
+                        <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                          In Progress
+
 
                         </div>
-                     
-                      
-                      <div className="status">
-                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
-                       In Progress
 
-                       
-                      </div>
-                     
 
-                       <span className="user"><FaUser/></span> 
+                        <span className="user"><FaUser /></span>
                       </div>
                     </div>
                   </li>
@@ -312,48 +280,41 @@ const projectId =dataColumn._id
         </div>
         {
           doneColumn && doneColumn.length > 0 &&
-          doneColumn.filter((Column)=>
-          Column.title.includes(search) || 
-          Column.status.includes(search) ||
-          Column.assignee.includes(search) 
-
-
-    
-          ).map((item, index) => {
+          doneColumn.map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "olive" }}>
 
                   <li>
-                  <div className="card-item_header"  >
+                    <div className="card-item_header"  >
                       <div className="title">
                         <div
-                      
+
                           type="text"
                           className="form-control edit-title"
                           //  onChange={(event) => setTitle(event.target.value)}
                           //  onBlur={(event) => setTaskTitle(event.target.value)}
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                          </div>
+                        </div>
                         <span className="icon"> <Dropdown>
-                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
-                      
-                       <Dropdown.Menu>
+                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown></span> 
+                          <Dropdown.Menu>
+
+                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown></span>
+
+                      </div>
+
+                      <div className="status">
+                        <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                          Done
 
                         </div>
-                      
-                      <div className="status">
-                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
-                      Done
-                       
-                      </div>
-                     
 
-                       <span className="user"><FaUser/></span> 
+
+                        <span className="user"><FaUser /></span>
                       </div>
                     </div>
                   </li>
@@ -371,52 +332,45 @@ const projectId =dataColumn._id
       < div className="column" >
         <div className="column-drag-handle" style={{ backgroundColor: "palevioletred" }}>
 
-          <div className="title-header"><span style={{ color: "		#8B0000", marginRight: "20px", fontSize: "35px" }}><ImCancelCircle /></span> Cancel</div>
+          <div className="title-header"><span style={{ color: "", marginRight: "20px", fontSize: "35px" }}><ImCancelCircle /></span> Cancel</div>
 
         </div>
         {
           cancelColumn && cancelColumn.length > 0 &&
-          cancelColumn.filter((Column)=>
-          Column.title.includes(search) || 
-          Column.status.includes(search) ||
-          Column.assignee.includes(search) 
-
-
-    
-          ).map((item, index) => {
+          cancelColumn.map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "palevioletred" }}>
 
                   <li>
-                  <div className="card-item_header"  >
+                    <div className="card-item_header"  >
                       <div className="title">
                         <div
-                      
+
                           type="text"
                           className="form-control edit-title"
-                       
-                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                          </div>
-                        <span className="icon"> <Dropdown>
-                       < Dropdown.Toggle  id="dropdown-basic" size="sm" className="icon-dropdown"/>
-                      
-                       <Dropdown.Menu>
 
-                       <Dropdown.Item  onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                        </Dropdown.Menu>
-                      </Dropdown></span> 
+                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
+                        </div>
+                        <span className="icon"> <Dropdown>
+                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+
+                          <Dropdown.Menu>
+
+                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                          </Dropdown.Menu>
+                        </Dropdown></span>
+
+                      </div>
+
+                      <div className="status">
+                        <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
+                          Cancel
 
                         </div>
-                      
-                      <div className="status">
-                      <div className="dropDown" onClick={() => handleShowUpdateModal(item)}>
-                       Cancel
-                       
-                      </div>
-                     
 
-                       <span className="user"><FaUser/></span> 
+
+                        <span className="user"><FaUser /></span>
                       </div>
                     </div>
                   </li>
@@ -436,19 +390,16 @@ const projectId =dataColumn._id
             color: "white",
           }} onClick={handleShow}>
             <AiOutlinePlusCircle />
-
             Add new card
-
           </button>
-
         </footer> */}
 
 
       </div >
-      <Example show={show} handleshow={handleshow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member}/>
+      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member} />
       <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
-      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} member={member}/>
+      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} member={member} />
     </>
   );
 };
