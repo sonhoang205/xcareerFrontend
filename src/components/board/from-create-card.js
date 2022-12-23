@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 
 const Example = (props) => {
-    const { show, handleShow, projectId, todo, inProgress, Done, Cancel, user, setImage, image, setDataMedia, setDataCreatedTask, dataCreatedTask, dataMedia, setTotalData } = props;
+    const { show, handleShow, projectId, todo, inProgress, Done, Cancel, user, setImage, image, setDataMedia, setDataCreatedTask, dataCreatedTask, dataMedia, setTotalData, setTaskAfterUpdate } = props;
     const [title, setTitle] = useState("");
     const [description, setdescription] = useState("");
     const [status, setstatus] = useState("To Do");
@@ -19,7 +19,6 @@ const Example = (props) => {
 
 
 
-    console.log("dataMedia", dataMedia)
 
     const handleCreatcard = async () => {
         let dataCreate = {
@@ -42,10 +41,8 @@ const Example = (props) => {
         }
 
         if (Creatcard && Creatcard.data.success === 1) {
-            console.log("res", Creatcard.data.data._id);
             setDataCreatedTask(Creatcard.data.data._id)
-            console.log("DataCreatedTask", dataCreatedTask);
-
+            console.log("dataCreatedTask", Creatcard.data.data._id)
             toast.success("create new card success");
             setTitle("");
             setdescription("");
@@ -67,49 +64,10 @@ const Example = (props) => {
 
 
 
-    const updateFile = async () => {
-        const data = new FormData();
-        data.append('file', image);
 
 
-        let creatFile = await axios({
-            method: 'post',
-            url: 'http://localhost:9090/api/upload/disk',
-            data: data,
-            headers: {
-                'Content-Type': `multipart/form-data;`,
-            },
-        });
 
 
-        if (creatFile && creatFile.data.success === 1) {
-            toast.success("update file success");
-            setDataMedia(creatFile.data.data)
-            console.log("creatFile", creatFile)
-            setImage("")
-        }
-
-
-    }
-    const handleUpdateImage = (event) => {
-        setImage(event.target.files[0])
-        console.log("update", event.target.files[0])
-
-
-    }
-
-    const handleUpdateTaskAfterCreateImage = async () => {
-        // taskId: dataCreatedTask,
-        //     fileName: dataMedia
-
-        let res = await http.put(
-            `http://localhost:9090/api/task/updatefile?taskId=${dataCreatedTask}&fileName=${dataMedia}`
-
-        );
-        if (res && res.data.success === 1) {
-            console.log("resaaa", res)
-        };
-    };
     return (
         <>
             <Modal show={show} onHide={handleShow} size="xl">
@@ -143,18 +101,7 @@ const Example = (props) => {
                                 onChange={(event) => setdescription(event.target.value)}
                             />
                         </div>
-                        <div className="col-md-12">
-                            <label for="inputEmail4" className="form-label">
-                                File
-                            </label>
-                            <input
-                                id="label-up"
-                                type="file"
-                                className='form-control'
-                                onChange={(event) => handleUpdateImage(event)}
 
-                            />
-                        </div>
 
                         {/* <div className="col-md-6">
                             <label for="inputEmail4" className="form-label">
@@ -242,7 +189,7 @@ const Example = (props) => {
                     <Button variant="secondary" onClick={handleShow}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={() => { handleCreatcard(); updateFile(); handleUpdateTaskAfterCreateImage() }}>
+                    <Button variant="primary" onClick={() => { handleCreatcard(); }}>
                         Save
                     </Button>
                     {/* <Button variant="primary" onClick={updateFile}>

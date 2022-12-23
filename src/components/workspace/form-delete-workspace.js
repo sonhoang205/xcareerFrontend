@@ -4,12 +4,12 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../http-common";
-import {DeleteWorkSpace} from "../util/apiService"
-const Delete=(props)=> {
+import { DeleteWorkSpace } from "../util/apiService"
+const Delete = (props) => {
   const { showDelete, handleDeleteWorkspace, dataDelete, fetchData } =
     props;
   const handleDeleteWorkSpace = async () => {
-    let res = await DeleteWorkSpace(dataDelete.id)
+    let res = await DeleteWorkSpace(dataDelete._id)
     if (res && res.data.success === 1) {
       console.log("res", res);
       toast.success("delete  workspace success");

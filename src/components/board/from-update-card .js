@@ -39,7 +39,7 @@ const UpdateCard = (props) => {
         console.log("id", id);
 
         let res = await http.put(
-            `http://localhost:9090/api/task/${id}`,
+            `http://localhost:9090/api/task/updatetask/${id}`,
             dataupdate
         );
 
@@ -68,34 +68,34 @@ const UpdateCard = (props) => {
         <>
             <Modal show={show} onHide={handleShow} size="sm"
             >
-
+                <Modal.Header closeButton>
+                    <Modal.Title>  changed the Status</Modal.Title>
+                </Modal.Header>
                 <Modal.Body>
                     <form className="row g-3">
 
-                        <fieldset class="border rounded-3 p-3">
-                            <legend class="float-none w-auto px-3">change the Status</legend>
 
 
-                            <div className="col-md-12">
-                                <label for="inputPassword4" className="form-label">
-                                    status
-                                </label>
 
-                                <select
-                                    id="inputState"
-                                    className="form-select"
-                                    value={status}
-                                    onChange={(event) => setstatus(event.target.value)}
-                                >
-                                    <option>To Do</option>
-                                    <option>In Progress</option>
-                                    <option>Done</option>
-                                    <option>Cancel</option>
+                        <div className="col-md-12">
+                            <label for="inputPassword4" className="form-label">
+                                status
+                            </label>
 
-                                </select>
+                            <select
+                                id="inputState"
+                                className="form-select"
+                                value={status}
+                                onChange={(event) => setstatus(event.target.value)}
+                            >
+                                <option>To Do</option>
+                                <option>In Progress</option>
+                                <option>Done</option>
+                                <option>Cancel</option>
 
-                            </div>
-                        </fieldset>
+                            </select>
+
+                        </div>
                         <Button variant="primary" onClick={handleUpdateCard}>
                             Save
                         </Button>
@@ -103,6 +103,14 @@ const UpdateCard = (props) => {
                     </form>
 
                 </Modal.Body>
+                {/* <Modal.Footer>
+                    <Button variant="secondary" onClick={handleShow}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={handleUpdateCard}>
+                        Save
+                    </Button>
+                </Modal.Footer> */}
             </Modal>
         </>
     );

@@ -106,9 +106,7 @@ const Sidebar = ({ image, collapsed, toggled, handleToggleSidebar }) => {
             <MenuItem icon={<FaGem />}>
               <Link to="/listuser">List user</Link>{" "}
             </MenuItem>
-            <MenuItem icon={<FaGem />}>
-              <Link to="/DashBoard">DashBoard</Link>{" "}
-            </MenuItem>
+
           </Menu>
           {/* <Menu iconShape="circle">
             <SubMenu

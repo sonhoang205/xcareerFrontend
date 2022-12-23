@@ -197,7 +197,7 @@ const Workspaces = (props) => {
                                 <Dropdown.Item onClick={() => handleViewWorkspaceAssign(item)} >
                                   {t('workspaces.Fourth.textOne')}
                                 </Dropdown.Item>
-                                {/* <Dropdown.Item   onClick={() => handleDeleteWorkspace(item)}>Delete Workspace</Dropdown.Item> */}
+                                <Dropdown.Item onClick={() => handleDeleteWorkspace(item)}>Delete Workspace</Dropdown.Item>
                               </Dropdown.Menu>
                             </Dropdown>
                           </div>

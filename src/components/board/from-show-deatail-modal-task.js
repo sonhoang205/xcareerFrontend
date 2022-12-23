@@ -18,7 +18,7 @@ import { useSelector } from "react-redux";
 import Form from 'react-bootstrap/Form';
 import { Award } from "react-bootstrap-icons";
 const ShowDeatailTask = (props) => {
-  const { show, handleShow, projectId, dataUpdate, todo, inProgress, Done, Cancel, user } = props;
+  const { show, handleShow, projectId, dataUpdate, todo, inProgress, Done, Cancel, user, dataMedia, setDataMedia, setTaskAfterUpdate, taskAfterUpdate } = props;
   const [title, setTitle] = useState("");
   const [description, setdescription] = useState("");
   const [status, setstatus] = useState("To Do");
@@ -80,6 +80,7 @@ const ShowDeatailTask = (props) => {
       // setImage(dataUpdate.img);
 
 
+
     }
   }, [dataUpdate]);
 
@@ -87,6 +88,7 @@ const ShowDeatailTask = (props) => {
   const handleChangSortInput = () => {
     setSortInput(!sortInput)
   }
+
 
   const handleUpdateCard = async () => {
     let dataupdate = {
@@ -125,9 +127,9 @@ const ShowDeatailTask = (props) => {
 
 
   const handleUpdateImage = (event) => {
-    setPreImage(URL.createObjectURL(event.target.files[0]))
     setImage(event.target.files[0])
-    console.log("update", event.target.files[0])
+    console.log("update", event.target.files[0].name)
+    console.log("image", image)
 
 
   }
@@ -159,12 +161,14 @@ const ShowDeatailTask = (props) => {
 
   }
 
+
   const updateFile = async () => {
     const data = new FormData();
     data.append('file', image);
 
 
-    let updateFile = await axios({
+
+    let creatFile = await axios({
       method: 'post',
       url: 'http://localhost:9090/api/upload/disk',
       data: data,
@@ -173,15 +177,35 @@ const ShowDeatailTask = (props) => {
       },
     });
 
+    if (creatFile && creatFile.data.success === 1) {
 
-    if (updateFile && updateFile.data.success === 1) {
+      console.log("creatFile", creatFile.data.data)
+
       toast.success("update file success");
+      setDataMedia(creatFile.data.data)
+      console.log("DataMedia", dataMedia)
 
-
+      setImage("")
     }
 
 
   }
+  const handleUpdateTaskAfterCreateImage = async () => {
+
+
+    let res = await http.put(
+      `http://localhost:9090/api/task/updatefile?taskId=${dataUpdate._id}&fileName=${dataMedia}`
+    );
+
+
+    if (res && res.data.success === 1) {
+      console.log("res", res.data.updateFileName)
+
+
+      setTaskAfterUpdate(res.data.updateFileName)
+      console.log("TaskAfterUpdate", taskAfterUpdate)
+    }
+  };
 
   const handleInputComment = async () => {
     let commentCreate = {
@@ -225,7 +249,6 @@ const ShowDeatailTask = (props) => {
     event.target.focus()
     event.target.select()
   }
-
 
 
 
@@ -341,6 +364,23 @@ const ShowDeatailTask = (props) => {
 
                 {/* /.////////////////////// */}
                 <div className="image">
+                  <div className="image-header" > File </div>
+
+                  <label for="inputEmail4" className="form-label label-upload" htmlFor="label-up">
+                  </label>
+
+                  <input
+                    id="label-up"
+                    type="file"
+                    hidden
+                    onChange={(event) => handleUpdateImage(event)}
+                  />
+                </div>
+
+
+
+                {/* </div> */}
+                {/* <div className="image">
                   <div className="image-header" onClick={ChangeState}> Image: </div>
                   {imageState === true ? <div className="col-md-12 Uploade-img">
                     <label for="inputEmail4" className="form-label label-upload" htmlFor="label-up">
@@ -362,14 +402,17 @@ const ShowDeatailTask = (props) => {
                   </div> :
                     <div className="image-body">
                       <img src={image} />
-                    </div>}
+                    </div>} */}
 
-
-
-                </div>
               </div>
 
+              <input
+                id="label-up"
+                type="file"
+                className='form-control'
+                onChange={(event) => handleUpdateImage(event)}
 
+              />
 
             </div>
             <div className="body-right">
@@ -419,16 +462,18 @@ const ShowDeatailTask = (props) => {
                 </select>
 
               </div>
-
-              <div className="form-group">
-                <label className="form-label" >file </label>
+              {/* <div className="col-md-12">
+                <label for="inputEmail4" className="form-label">
+                  File
+                </label>
                 <input
                   id="label-up"
                   type="file"
-
+                  className='form-control'
+                  onChange={(event) => handleUpdateImage(event)}
 
                 />
-              </div>
+              </div> */}
 
 
 
@@ -436,15 +481,11 @@ const ShowDeatailTask = (props) => {
 
           </div>
           <Modal.Footer>
-            <Button variant="primary" onClick={handleUpdateCard}
+            <Button variant="primary" onClick={() => { updateFile(); handleUpdateCard(); handleUpdateTaskAfterCreateImage() }}
             >
               Save
             </Button>
-            <Button variant="primary" onClick={updateFile}
 
-            >
-              Save image
-            </Button>
 
           </Modal.Footer>
         </Modal.Body>

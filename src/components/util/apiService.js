@@ -13,7 +13,7 @@ const creatNewWorkSpace = (name) => {
 
 const DeleteWorkSpace = (id) => {
 
-    return http.delete(`workspace/${id}`);
+    return http.delete(`http://localhost:9090/api/workspace?workspaceId=${id}`);
 }
 
 // const UpdateWorkspaces = (id ,name)=>{

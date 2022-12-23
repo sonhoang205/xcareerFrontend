@@ -85,13 +85,8 @@ function Example(props) {
                 value={type}
                 onChange={(event) => setType(event.target.value)}
               >
-                <option>Choose</option>
                 <option>Kanban software </option>
-                <option>Basic software </option>
-                <option>Task management</option>
-                <option>Project management</option>
-                <option>Process management</option>
-                <option>Other</option>
+
               </select>
             </div>
             <div className="col-md-12"></div>

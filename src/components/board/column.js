@@ -48,7 +48,7 @@ const Column = (props) => {
   const [title, setTitle] = useState("");
   const [dataFlag, setDataFlag] = useState("")
 
-
+  const [taskAfterUpdate, setTaskAfterUpdate] = useState('')
 
   const [image, setImage] = useState("");
 
@@ -63,6 +63,7 @@ const Column = (props) => {
 
   const [totalData, setTotalData] = useState("")
 
+  // console.log(taskAfterUpdate.fileName)
 
   const ShowDeatailmodalTask = (user) => {
     setShowDetailModal(!showDetailModal);
@@ -80,8 +81,10 @@ const Column = (props) => {
   const handleShowDeleteModal = (user) => {
     setShowDeleteModal(!showDeleteModal);
     setDataDelete(user);
-    console.log("item", user)
   };
+
+
+
 
   const todo = async () => {
     const status = "To Do"
@@ -127,7 +130,11 @@ const Column = (props) => {
     }
   };
 
+  const aa = async () => {
 
+    let data = await axios.get('http://localhost:9090/885fd439c26e053583f16b1915cc36d1.jpg')
+    console.log("data", data)
+  }
 
 
   // const seclectAllText = (e)=>{
@@ -139,6 +146,7 @@ const Column = (props) => {
     inProgress();
     Done();
     Cancel();
+    aa()
   }, [projectId]);
 
 
@@ -155,10 +163,9 @@ const Column = (props) => {
         </div>
 
 
-
         {todoColum && todoColum.length > 0 &&
           todoColum.map((item, index) => {
-            console.log("item", item)
+
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "#F5F5F5" }}>
@@ -166,22 +173,21 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        {dataMedia ?
-
-                          <div
+                        {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id && taskAfterUpdate.status === item.status ?
+                          < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            <img src={`http://localhost:9090/${dataMedia}`} alt="" />
+                            {/* <img src={} alt="" /> */}
+                            <div>{aa}</div>
                           </div>
                           :
-
-                          <div
+                          < div
 
                             className="form-control title-col"
 
                             onClick={() => ShowDeatailmodalTask(item)} >   {item.title}
                           </div>
-                        }
 
+                        }
 
                         <span className="icon">
                           {account._id === LeadId ?
@@ -246,14 +252,20 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        <div
+                        {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id && taskAfterUpdate._id === item._id ?
+                          < div
+                            className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
+                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                          </div>
+                          :
+                          < div
 
-                          type="text"
-                          className="form-control edit-title"
-                          //  onChange={(event) => setTitle(event.target.value)}
-                          //  onBlur={(event) => setTaskTitle(event.target.value)}
-                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                        </div>
+                            className="form-control title-col"
+
+                            onClick={() => ShowDeatailmodalTask(item)} >   {item.title}
+                          </div>
+
+                        }
                         <span className="icon">
                           {account._id === LeadId ?
                             <Dropdown>
@@ -313,14 +325,20 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        <div
+                        {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id ?
+                          < div
+                            className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
+                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                          </div>
+                          :
+                          < div
 
-                          type="text"
-                          className="form-control edit-title"
-                          //  onChange={(event) => setTitle(event.target.value)}
-                          //  onBlur={(event) => setTaskTitle(event.target.value)}
-                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                        </div>
+                            className="form-control title-col"
+
+                            onClick={() => ShowDeatailmodalTask(item)} >   {item.title}
+                          </div>
+
+                        }
                         <span className="icon">
                           {account._id === LeadId ?
                             <Dropdown>
@@ -375,13 +393,20 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        <div
+                        {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id ?
+                          < div
+                            className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
+                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                          </div>
+                          :
+                          < div
 
-                          type="text"
-                          className="form-control edit-title"
+                            className="form-control title-col"
 
-                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                        </div>
+                            onClick={() => ShowDeatailmodalTask(item)} >   {item.title}
+                          </div>
+
+                        }
                         <span className="icon">
                           {account._id === LeadId ?
                             <Dropdown>
@@ -432,10 +457,10 @@ const Column = (props) => {
 
 
       </div >
-      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} user={user} image={image} setImage={setImage} setDataMedia={setDataMedia} setDataCreatedTask={setDataCreatedTask} dataCreatedTask={dataCreatedTask} dataMedia={dataMedia} setTotalData={setTotalData} />
+      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} user={user} image={image} setImage={setImage} setDataMedia={setDataMedia} setDataCreatedTask={setDataCreatedTask} dataCreatedTask={dataCreatedTask} dataMedia={dataMedia} setTotalData={setTotalData} setTaskAfterUpdate={setTaskAfterUpdate} />
       <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} user={user} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
-      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} user={user} member={member} listmem={listmem} />
+      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} user={user} member={member} listmem={listmem} setTaskAfterUpdate={setTaskAfterUpdate} setDataCreatedTask={setDataCreatedTask} dataMedia={dataMedia} taskAfterUpdate={taskAfterUpdate} setDataMedia={setDataMedia} />
     </>
   );
 };

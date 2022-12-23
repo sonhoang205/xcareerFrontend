@@ -1,10 +1,12 @@
 import video from "../../assets/video-1920.mp4";
 import videoSecond from "../../assets/inline-form-2.mp4";
 import { useTranslation, Trans } from 'react-i18next';
+import { useSelector } from "react-redux";
 
 const Homepage = (props) => {
   const { t } = useTranslation();
-
+  const islogin = useSelector((state) => state.user.islogin);
+  const account = useSelector((state) => state.user.account);
   return (
     // autoplay muted loop
     <>
@@ -22,9 +24,11 @@ const Homepage = (props) => {
 
           </div>
           <div className="third-tittle">
+            {islogin ? <button> {t('homepage.fourthTittleTittle.button')}             </button>
+              :
+              <button> {t('homepage.thirdTittle.button')}   </button>
 
-            <button> {t('homepage.thirdTittle.button')}
-            </button>
+            }
           </div>
           <div className="fourth-tittle">
             <div>{t('homepage.fourthTittle.textOne')}</div>
