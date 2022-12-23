@@ -107,7 +107,6 @@ const ShowDeatailTask = (props) => {
 
 
     if (res && res.data.success === 1) {
-      toast.success("update task success");
       setImageState(false)
       setDescriptionState(false)
       setTitleState(false)
