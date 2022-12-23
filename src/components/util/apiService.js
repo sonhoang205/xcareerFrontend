@@ -13,7 +13,7 @@ const creatNewWorkSpace = (name) => {
 
 const DeleteWorkSpace = (id) => {
 
-    return http.delete(`http://localhost:9090/api/workspace?workspaceId=${id}`);
+    return http.delete(`https://xcareer1backend.onrender.com/api/workspace?workspaceId=${id}`);
 }
 
 // const UpdateWorkspaces = (id ,name)=>{
@@ -35,13 +35,13 @@ const dataAssign = (id) => {
 
 const renderWorkspace = (id) => {
     return http.get(
-        `http://localhost:9090/api/project?workspaceId=${id}`
+        `https://xcareer1backend.onrender.com/api/project?workspaceId=${id}`
     );
 }
 
 
 const listUser = (offset, limit) => {
-    return http.get(`http://localhost:9090/api/auth/seeusers?offset=${offset}&limit=${limit}`)
+    return http.get(`https://xcareer1backend.onrender.com/api/auth/seeusers?offset=${offset}&limit=${limit}`)
 }
 
 
@@ -52,7 +52,7 @@ const creatMem = (projectId, userId) => {
 
     };
     return http.post(
-        `http://localhost:9090/api/member/add`,
+        `https://xcareer1backend.onrender.com/api/member/add`,
         dataCreate
     );
 }
@@ -60,14 +60,14 @@ const creatMem = (projectId, userId) => {
 
 const renderAllMemInProject = (id) => {
     return http.get(
-        `http://localhost:9090/api/member/projectId/${id}`
+        `https://xcareer1backend.onrender.com/api/member/projectId/${id}`
     );
 
 }
 
 const getMemProject = (id) => {
     return http.get(
-        `http://localhost:9090/api/member/userId/${id}`
+        `https://xcareer1backend.onrender.com/api/member/userId/${id}`
     );
 }
 
@@ -75,7 +75,7 @@ const getMemProject = (id) => {
 const kickUser = (projectId, userId) => {
 
     return http.delete(
-        `http://localhost:9090/api/member/kick?projectId${projectId}&userId${userId}`,
+        `https://xcareer1backend.onrender.com/api/member/kick?projectId${projectId}&userId${userId}`,
 
     );
 }

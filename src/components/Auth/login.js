@@ -40,7 +40,7 @@ const Login = (props) => {
     setLoading(true);
     NProgress.start();
 
-    let res = await axios.post("http://localhost:9090/api/auth/login", {
+    let res = await axios.post("https://xcareer1backend.onrender.com/api/auth/login", {
       username: username,
       password: password,
     });

@@ -31,7 +31,7 @@ const Example = (props) => {
         };
 
         let Creatcard = await http.post(
-            "http://localhost:9090/api/task/create",
+            "https://xcareer1backend.onrender.com/api/task/create",
             dataCreate
         );
 
@@ -65,7 +65,7 @@ const Example = (props) => {
 
 
 
-
+    console.log("reporter", reporter)
 
 
     return (
@@ -153,8 +153,7 @@ const Example = (props) => {
                             <select
                                 className="form-control"
                                 id="inputEmail4"
-                                value={reporter}
-                                onChange={(event) => setReporter(event.target.value)}
+                                value={account.username}
 
                             >
 

@@ -6,10 +6,10 @@ import { toast } from "react-toastify";
 import { useEffect } from "react";
 import _ from "lodash";
 import http from "../../http-common";
-import {UpdateWorkspaces} from "../util/apiService"
+import { UpdateWorkspaces } from "../util/apiService"
 function UpdateWorkspace(props) {
   const { showUpdate, handleChangeUpdateWorkspace, dataUpdate, fetchData } = props;
-    // console.log("dataUpdate",dataUpdate);
+  // console.log("dataUpdate",dataUpdate);
   const [name, setName] = useState("");
   const [id, setId] = useState("");
 
@@ -26,7 +26,7 @@ function UpdateWorkspace(props) {
       name: name,
     };
     let res = await http.put(
-      `http://localhost:9090/api/workspace/${id}`,
+      `https://xcareer1backend.onrender.com/api/workspace/${id}`,
       data
     );
     console.log(res);

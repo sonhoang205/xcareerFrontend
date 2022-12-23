@@ -194,7 +194,7 @@ const ShowDeatailTask = (props) => {
 
 
     let res = await http.put(
-      `http://localhost:9090/api/task/updatefile?taskId=${dataUpdate._id}&fileName=${dataMedia}`
+      `https://xcareer1backend.onrender.com/api/task/updatefile?taskId=${dataUpdate._id}&fileName=${dataMedia}`
     );
 
 

@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const http = axios.create({
-  baseURL: "http://localhost:9090/api/",
+  baseURL: "https://xcareer1backend.onrender.com/api/",
   params: {
     // userId: user.id,
   },

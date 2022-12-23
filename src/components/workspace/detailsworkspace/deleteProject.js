@@ -12,7 +12,7 @@ const DeleteProject = (props) => {
   const { showDeleteModal, handleShowDeleteModal, dataDelete, abc } = props;
   const handleDeleteProject = async (userId) => {
     let res = await http.delete(
-      `http://localhost:9090/api/project/${dataDelete._id} `
+      `https://xcareer1backend.onrender.com/${dataDelete._id} `
     );
 
     if (res && res.data.success === 1) {

@@ -11,7 +11,7 @@ const DeleteCard = (props) => {
 
     const handleDeleteWorkSpace = async () => {
         let res = await http.delete(
-            `http://localhost:9090/api/task/${datadelete._id} `
+            `https://xcareer1backend.onrender.com/api/task/${datadelete._id} `
         );
         if (res && res.data.success === 1) {
 

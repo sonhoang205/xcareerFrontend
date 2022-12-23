@@ -81,7 +81,7 @@ const UpdateProject = (props) => {
                 disabled
               />
             </div>
-            <div className="col-md-12">
+            {/* <div className="col-md-12">
               <label for="inputPassword4" className="form-label">
                 {t('updateProject.Fourth')}
               </label>
@@ -99,7 +99,7 @@ const UpdateProject = (props) => {
                 <option>Project management</option>
                 <option>Process management</option>
               </select>
-            </div>
+            </div> */}
             <div className="col-md-12"></div>
           </form>
         </Modal.Body>

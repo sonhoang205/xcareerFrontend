@@ -39,7 +39,7 @@ const UpdateCard = (props) => {
         console.log("id", id);
 
         let res = await http.put(
-            `http://localhost:9090/api/task/updatetask/${id}`,
+            `https://xcareer1backend.onrender.com/api/task/updatetask/${id}`,
             dataupdate
         );
 

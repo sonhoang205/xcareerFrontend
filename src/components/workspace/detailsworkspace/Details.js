@@ -86,7 +86,6 @@ const WorkspaceDetails = (props) => {
   console.log(location?.state.LeadId)
 
   const workspaceId = params.id;
-  console.log(workspaceId);
   const [project, setProject] = useState([]);
   const abc = async () => {
     let data = await renderWorkspace(workspaceId)
@@ -172,7 +171,12 @@ const WorkspaceDetails = (props) => {
 
                 <div className="all-project-list">
                   {project && project.length > 0 &&
-                    project.map((item, index) => {
+                    project.filter((item) =>
+                      item.name.includes(search) ||
+                      item.type.includes(search)
+
+
+                    ).map((item, index) => {
                       return (
                         <div className="project-details">
                           <div className="project-details-img">

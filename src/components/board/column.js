@@ -31,7 +31,7 @@ import _ from "lodash";
 const Column = (props) => {
   const params = useParams();
   const location = useLocation();
-  const { projectId, member, listmem } = props
+  const { projectId, member, listmem, search } = props
   const islogin = useSelector((state) => state.user.islogin);
   const account = useSelector((state) => state.user.account);
   const [todoColum, setTodocolum] = useState([])
@@ -63,7 +63,8 @@ const Column = (props) => {
 
   const [totalData, setTotalData] = useState("")
 
-  // console.log(taskAfterUpdate.fileName)
+
+  console.log(taskAfterUpdate.fileName)
 
   const ShowDeatailmodalTask = (user) => {
     setShowDetailModal(!showDetailModal);
@@ -89,7 +90,7 @@ const Column = (props) => {
   const todo = async () => {
     const status = "To Do"
     let data = await http.get(
-      `//localhost:9090/api/task?status=To Do&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/api/task?status=To Do&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setTodocolum(data.data.data.tasks)
@@ -100,7 +101,7 @@ const Column = (props) => {
   const inProgress = async () => {
     const status = "In Progress"
     let data = await http.get(
-      `//localhost:9090/api/task?status=${status}&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/api/task?status=${status}&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setInProgress(data.data.data.tasks)
@@ -111,7 +112,7 @@ const Column = (props) => {
     const status = "Done"
 
     let data = await http.get(
-      `//localhost:9090/api/task?status=${status}&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/task?status=${status}&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setDoneColumn(data.data.data.tasks)
@@ -123,18 +124,14 @@ const Column = (props) => {
   const Cancel = async () => {
 
     let data = await http.get(
-      `//localhost:9090/api/task?status=Cancel&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/task?status=Cancel&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setCancelColumn(data.data.data.tasks)
     }
   };
 
-  const aa = async () => {
 
-    let data = await axios.get('http://localhost:9090/885fd439c26e053583f16b1915cc36d1.jpg')
-    console.log("data", data)
-  }
 
 
   // const seclectAllText = (e)=>{
@@ -146,7 +143,6 @@ const Column = (props) => {
     inProgress();
     Done();
     Cancel();
-    aa()
   }, [projectId]);
 
 
@@ -164,7 +160,11 @@ const Column = (props) => {
 
 
         {todoColum && todoColum.length > 0 &&
-          todoColum.map((item, index) => {
+          todoColum.filter((item) =>
+            item.title.includes(search)
+
+
+          ).map((item, index) => {
 
             return (
               <>
@@ -176,8 +176,7 @@ const Column = (props) => {
                         {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id && taskAfterUpdate.status === item.status ?
                           < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            {/* <img src={} alt="" /> */}
-                            <div>{aa}</div>
+                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
                           </div>
                           :
                           < div
@@ -243,7 +242,11 @@ const Column = (props) => {
         </div>
         {
           inProgressColumn && inProgressColumn.length > 0 &&
-          inProgressColumn.map((item, index) => {
+          inProgressColumn.filter((item) =>
+            item.title.includes(search)
+
+
+          ).map((item, index) => {
             return (
               <>
 
@@ -317,7 +320,11 @@ const Column = (props) => {
         </div>
         {
           doneColumn && doneColumn.length > 0 &&
-          doneColumn.map((item, index) => {
+          doneColumn.filter((item) =>
+            item.title.includes(search)
+
+
+          ).map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "olive" }}>
@@ -385,7 +392,11 @@ const Column = (props) => {
         </div>
         {
           cancelColumn && cancelColumn.length > 0 &&
-          cancelColumn.map((item, index) => {
+          cancelColumn.filter((item) =>
+            item.title.includes(search)
+
+
+          ).map((item, index) => {
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "palevioletred" }}>
