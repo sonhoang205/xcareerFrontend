@@ -37,3 +37,80 @@
 
     }
 }
+
+.modal-show-user {
+    margin: 0 20px;
+
+    .title-user-modal {
+        font-size: 25px;
+        border: 1px solid black;
+        width: 200px;
+        height: 40px;
+        display: flex;
+        background: #9861A5;
+        justify-content: center;
+        color: #E5D058;
+        border-radius: 20px;
+
+
+
+    }
+
+    .info {
+
+        display: flex;
+
+        gap: 100px;
+
+
+        .details-workOn {
+            flex: 60%;
+
+            .title {
+                margin-bottom: 20px;
+                color: black;
+            }
+
+            .table-workOn {
+                height: 400px;
+                width: 400px;
+                overflow: auto;
+                border: 1px solid black;
+                overflow: auto;
+                background-color: #B2BEB5;
+
+
+
+                .place-work {
+                    display: flex;
+                    align-items: center;
+                    font-size: 30px;
+                    gap: 30px;
+                    background-color: #00CAFF;
+                    margin: 10px 10px;
+                    border-radius: 20px;
+                    border: 1px solid black;
+
+                    .place-work_img {
+                        width: 60px;
+                        height: 60px;
+
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                            border-top-left-radius: 20px;
+                            border-bottom-left-radius: 20px;
+
+                        }
+                    }
+
+                    div {
+                        color: #0A3161;
+                    }
+                }
+
+            }
+        }
+
+    }
+}

@@ -6,12 +6,14 @@ import { toast } from "react-toastify";
 // import { useParams, useLocation } from "react-router-dom";
 import _ from "lodash";
 import http from "../../../http-common";
+import { useTranslation, Trans } from 'react-i18next';
 
 const UpdateProject = (props) => {
   const { showUpdateModal, handleShowUpdateModal, dataParam, update } = props;
   //   const islogin = useSelector((state) => state.user.islogin);
   //   const account = useSelector((state) => state.user.account);
   // console.log("dataUpdate", dataUpdate);
+  const { t } = useTranslation();
 
   const [name, setName] = useState("");
   const [type, setType] = useState("Choose");
@@ -50,13 +52,13 @@ const UpdateProject = (props) => {
     <>
       <Modal show={showUpdateModal} onHide={handleShowUpdateModal} size="l">
         <Modal.Header closeButton>
-          <Modal.Title>update Project</Modal.Title>
+          <Modal.Title>{t('updateProject.First')}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
             <div className="col-md-12">
               <label for="inputEmail4" className="form-label">
-                Name
+                {t('updateProject.Second')}
               </label>
               <input
                 type="email"
@@ -68,7 +70,7 @@ const UpdateProject = (props) => {
             </div>
             <div className="col-md-12">
               <label for="inputEmail4" className="form-label">
-                Id
+                {t('updateProject.Third')}
               </label>
               <input
                 type="email"
@@ -81,7 +83,7 @@ const UpdateProject = (props) => {
             </div>
             <div className="col-md-12">
               <label for="inputPassword4" className="form-label">
-                Type
+                {t('updateProject.Fourth')}
               </label>
 
               <select
@@ -103,10 +105,10 @@ const UpdateProject = (props) => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleShowUpdateModal}>
-            Close
+            {t('updateProject.Fifth')}
           </Button>
           <Button variant="primary" onClick={handleUpdateProject}>
-            Save Changes
+            {t('updateProject.Sixth')}
           </Button>
         </Modal.Footer>
       </Modal>

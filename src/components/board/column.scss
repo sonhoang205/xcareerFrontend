@@ -1,7 +1,7 @@
 .column {
     flex: 0 0 auto;
     width: 390px;
-    height: 69vh;
+    height: 76vh;
     margin-left: 50px;
     margin-top: 30px;
     overflow: auto;
@@ -58,8 +58,8 @@
             background-color: white;
             border-radius: 2px;
             margin-top: 10px;
-
-            margin-bottom: 20px;
+            height: 180px;
+            margin-bottom: 10px;
             -webkit-box-shadow: 0 10px 6px -6px #777;
             -moz-box-shadow: 0 10px 6px -6px #777;
             box-shadow: 0 10px 6px -6px #777;
@@ -81,6 +81,7 @@
                 align-items: center;
                 justify-content: space-between;
                 flex-direction: column;
+                height: 180px;
                 margin-bottom: 10px;
                 // border-bottom: 1px solid #ebecf0;
                 // border-bottom-left-radius: 10px;
@@ -93,19 +94,23 @@
                     font-size: 25px;
                     width: 100%;
                     padding: 10px 10px;
-                    height: 60px;
+                    height: 200px;
                     display: flex;
 
                     .edit-title {
-                        // margin-right: 10px;
-                        // background-color: inherit;
+                        width: 330px;
+                        height: 95px;
+                        overflow: hidden;
+                        padding: 0 70px;
+
+                        img {
+                            max-width: 100%;
+                            max-height: 100%;
+                        }
+                    }
+
+                    .title-col {
                         border: none;
-                        // font-size: inherit;
-                        // font-weight: inherit;
-                        cursor: pointer;
-                        // &:focus {
-                        //     background-color: #ebecf0;
-                        // }
                     }
 
                     .icon {
@@ -145,7 +150,7 @@
                     display: flex;
                     align-items: center;
                     line-height: 25px;
-                    height: 40px;
+                    height: 50px;
                     padding-bottom: 5px;
 
                     .dropDown {
@@ -173,6 +178,7 @@
                         justify-content: center;
                         border-radius: 50%;
                         width: 50px;
+                        background-color: #B2BEB5;
 
 
 

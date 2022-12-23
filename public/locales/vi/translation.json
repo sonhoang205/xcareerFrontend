@@ -1,0 +1,82 @@
+{
+    "homepage": {
+        "firstTittle": " Công cụ quản lý dự án mang đến trải nghiệm tuyệt vời nhất",
+        "secondTittle": " Hãy để ứng dụng của chúng tôi giúp bạn lưu trữ dự án , công việc , thời gian thực hiện chúng cùng với nhau , vì thế nhóm của bạn có thể thoải mái tập trung cho nội dung công việc của mình thật tốt",
+        "thirdTittle": {
+            "button": "đăng nhập ngay , ứng dụng ko mất phí"
+        },
+        "fourthTittle": {
+            "textOne": "không yêu cầu thanh toán",
+            "textTwo": "Không giới hạn thời gian làm việc"
+        }
+    },
+    "header": {
+        "firstTittle": "Trang chủ",
+        "secondTittle": "Hệ thống",
+        "thirdTittle": "Danh sách người dùng",
+        "fourthTittle": {
+            "textOne": "Đăng nhập",
+            "textTwo": "Đăng ký",
+            "textThree": "Trang cá nhân",
+            "textFor": "Đăng xuất"
+        }
+    },
+    "workspaces": {
+        "First": {
+            "textOne": "Đăng Nhập ",
+            "textTwo": "Đăng Ký"
+        },
+        "second": {
+            "textThree": "Đăng xuất"
+        },
+        "Third": {
+            "textOne": "Thư mục của tôi",
+            "textTwo": "Thư mục được phân công"
+        },
+        "Fourth": {
+            "textOne": "xem chi tiết thư mục"
+        },
+        "Fifth": "thêm thư mục làm việc mới",
+        "Sixth": {
+            "textOne": "chỉnh sửa thư mục",
+            "textTwo": "Xóa thư mục"
+        }
+    },
+    "createProject": {
+        "First": "Tên",
+        "Second": "Kiểu",
+        "Third": "Đóng",
+        "Fourth": " Lưu lại",
+        "Fifth": " tạo dự án mới"
+    },
+    "Board": {
+        "First": {
+            "textOne": "Đăng nhập",
+            "textTwo": "Đăng ký",
+            "textThree": "Đăng xuất"
+        }
+    },
+    "deleteProject": {
+        "First": " Xác nhận xóa thư mục???",
+        "Second": "Bạn chắc chắn muốn xóa thư mục ",
+        "Third": "Đóng",
+        "Fourth": "Luu lại"
+    },
+    "Details": {
+        "First": "Đăng nhập",
+        "Second": " Đăng ký",
+        "Third": "Đăng xuất",
+        "Fourth": "Danh sách dự án "
+    },
+    "updateProject": {
+        "First": "Cập nhật dự án",
+        "Second": " tên",
+        "Third": "id",
+        "Fourth": " kiểu",
+        "Fifth": "thoát",
+        "Sixth": " Lưu lại"
+    },
+    "projectList": {
+        "First": "Kiểu"
+    }
+}

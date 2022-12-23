@@ -1,0 +1,82 @@
+{
+    "homepage": {
+        "firstTittle": " The project management tool teams actually* want to use ",
+        "secondTittle": "  Let my app keep your tasks, projects, and due dates together, so your team can focus on the substance of doing.",
+        "thirdTittle": {
+            "button": "Sign up -it's free"
+        },
+        "fourthTittle": {
+            "textOne": "No credit card required",
+            "textTwo": "No time limit on Free plan"
+        }
+    },
+    "header": {
+        "firstTittle": "Home",
+        "secondTittle": "Workspace",
+        "thirdTittle": "List User",
+        "fourthTittle": {
+            "textOne": "Log in",
+            "textTwo": "Sign up",
+            "textThree": "Profile",
+            "textFor": "Log Out"
+        }
+    },
+    "workspaces": {
+        "First": {
+            "textOne": "Log in",
+            "textTwo": "Sign up"
+        },
+        "second": {
+            "textThree": "Log Out"
+        },
+        "Third": {
+            "textOne": " My Workspace",
+            "textTwo": "Workspace assign to me"
+        },
+        "Fourth": {
+            "textOne": "View Details Workspace"
+        },
+        "Fifth": "create New WorkSpace",
+        "Sixth": {
+            "textOne": "Edit Workspace",
+            "textTwo": "Delete Workspace"
+        }
+    },
+    "createProject": {
+        "First": "Name",
+        "Second": "Type",
+        "Third": "Close",
+        "Fourth": " Save Changes",
+        "Fifth": "New Project"
+    },
+    "Board": {
+        "First": {
+            "textOne": "Log in",
+            "textTwo": "Sign up",
+            "textThree": "Log Out"
+        }
+    },
+    "deleteProject": {
+        "First": "  Confirm Delete ???",
+        "Second": "  Are you sure to delete Workspace ",
+        "Third": "Close",
+        "Fourth": "Save"
+    },
+    "Details": {
+        "First": "Log in",
+        "Second": " Sign up",
+        "Third": "Log Out",
+        "Fourth": " Project List"
+    },
+    "updateProject": {
+        "First": "Update Project",
+        "Second": " id",
+        "Third": "Type",
+        "Fourth": " Project List",
+        "Fifth": "cancel",
+        "Sixth": " Save"
+    },
+    "projectList": {
+        "First": "Type"
+    }
+}

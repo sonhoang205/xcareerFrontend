@@ -4,8 +4,11 @@ import Modal from "react-bootstrap/Modal";
 import { toast } from "react-toastify";
 import axios from "axios";
 import http from "../../../http-common";
+import { useTranslation, Trans } from 'react-i18next';
 
-const DeleteProject=(props)=> {
+const DeleteProject = (props) => {
+  const { t } = useTranslation();
+
   const { showDeleteModal, handleShowDeleteModal, dataDelete, abc } = props;
   const handleDeleteProject = async (userId) => {
     let res = await http.delete(
@@ -35,26 +38,28 @@ const DeleteProject=(props)=> {
         backdrop="static"
       >
         <Modal.Header closeButton>
-          <Modal.Title>Confirm Delete ???</Modal.Title>
+
+          <Modal.Title> {t('deleteProject.First')}</Modal.Title>
         </Modal.Header>
         {dataDelete && dataDelete.name ? (
           <>
             <Modal.Body>
-              Are you sure to delete Workspace :<b>{dataDelete.name}</b>
+              {t('deleteProject.Second')} :<b>{dataDelete.name}</b>
             </Modal.Body>
           </>
         ) : (
           <Modal.Body>
-            Are you sure to delete Workspace :<b>...</b>
+            {t('deleteProject.Second')} :<b>...</b>
           </Modal.Body>
         )}
 
         <Modal.Footer>
           <Button variant="secondary" onClick={handleShowDeleteModal}>
-            Exit
+            {t('deleteProject.Third')}
           </Button>
           <Button variant="primary" onClick={handleDeleteProject}>
-            Delete
+            {t('deleteProject.Fourth')}
+
           </Button>
         </Modal.Footer>
       </Modal>

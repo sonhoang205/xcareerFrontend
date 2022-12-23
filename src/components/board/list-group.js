@@ -13,8 +13,9 @@ import CreatMem from "../board/mem/creatmem"
 import http from "../../http-common";
 import { listUser } from "../util/apiService"
 import { renderAllMemInProject } from "../util/apiService"
+import ShowDetailMem from "../board/mem/showDetailMem"
 const ListGroup = (props) => {
-  const { search, setSearch } = props
+  const { search, setSearch, LeadId } = props
   const params = useParams();
   const location = useLocation();
   const projectId = params.id;
@@ -22,24 +23,30 @@ const ListGroup = (props) => {
   const [show, setShow] = useState(false);
 
   const [user, setUser] = useState();
+  const [showDeatailUser, setShowDeatailUser] = useState(false);
+  const [dataUser, setDataUser] = useState("");
+  const [data, setata] = useState("");
+  const [member, setMember] = useState();
+
+
+
+  const handleShowDeatailMem = (item) => {
+    setDataUser(item)
+    setShowDeatailUser(!showDeatailUser)
+  }
 
   const handleShowCreateMem = () => setShowCreateMem(!showCreateMem);
   const handleShow = () => setShow(!show);
 
-  console.log("projectId", projectId)
-  const abc = async () => {
+  const renderMember = async () => {
     let data = await renderAllMemInProject(projectId)
     if (data && data.data && data.data.success === 1) {
       setUser(data.data.data)
-
     }
   };
   useEffect(() => {
-    abc();
+    renderMember();
   }, [projectId]);
-
-
-
 
 
   return (
@@ -60,7 +67,8 @@ const ListGroup = (props) => {
                 user.map((item, index) => {
                   return (
 
-                    <div className="member-name"  >{item.username[0]}{item.username[item.username.length - 1]}</div>
+                    <div className="member-name" onClick={() => handleShowDeatailMem(item)}  >{item.username[0]}{item.username[item.username.length - 1]}</div>
+
 
                   )
                 })}
@@ -72,11 +80,12 @@ const ListGroup = (props) => {
       </div>
       <div className="board-content">
 
-        <Column projectId={projectId} handleShow={handleShow} show={show} search={search} />
+        <Column projectId={projectId} handleShow={handleShow} show={show} search={search} user={user} LeadId={LeadId} member={member} />
 
 
       </div>
-      <CreatMem show={showCreateMem} handleShow={handleShowCreateMem} projectId={projectId} abc={abc} user={user} />
+      <CreatMem show={showCreateMem} handleShow={handleShowCreateMem} projectId={projectId} abc={renderMember} user={user} listUser={listUser} member={member} setMember={setMember} />
+      <ShowDetailMem showDeatailUser={showDeatailUser} handleShowDeatailMem={handleShowDeatailMem} dataUser={dataUser} projectId={projectId} abc={renderMember} />
     </>
 
 

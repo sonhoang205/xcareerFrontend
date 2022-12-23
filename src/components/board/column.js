@@ -22,13 +22,18 @@ import DeleteCard from "./from-delete-card"
 import { status } from "nprogress";
 import { FaUser } from "react-icons/fa";
 import { BsFillFlagFill } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { toast } from "react-toastify";
 
 import _ from "lodash";
 
 const Column = (props) => {
   const params = useParams();
   const location = useLocation();
-  const { projectId } = props
+  const { projectId, member, listmem } = props
+  const islogin = useSelector((state) => state.user.islogin);
+  const account = useSelector((state) => state.user.account);
   const [todoColum, setTodocolum] = useState([])
   const [inProgressColumn, setInProgress] = useState([])
   const [doneColumn, setDoneColumn] = useState([])
@@ -43,22 +48,22 @@ const Column = (props) => {
   const [title, setTitle] = useState("");
   const [dataFlag, setDataFlag] = useState("")
 
-  const [ShowFlag, setShowFlag] = useState(false)
-  const [ShowFlagIP, setShowFlagIP] = useState(false)
-
-  const [ShowFlagC, setShowFlagC] = useState(false)
-  // const [dataShowDeatail, setDataShowDeatail] = useState("")
 
 
+  const [image, setImage] = useState("");
+
+  const [dataMedia, setDataMedia] = useState("");
+
+  const { show, handleShow, user, LeadId } = props
+
+  const [taskId, setTaskId] = useState("");
+  const [fileName, setFileName] = useState("");
+
+  const [dataCreatedTask, setDataCreatedTask] = useState('')
+
+  const [totalData, setTotalData] = useState("")
 
 
-  const { show, handleShow, member } = props
-
-
-
-  const ShowFlagDone = () => {
-    setShowFlagC(!ShowFlagC);
-  };
   const ShowDeatailmodalTask = (user) => {
     setShowDetailModal(!showDetailModal);
     setDataUpdate(user);
@@ -75,6 +80,7 @@ const Column = (props) => {
   const handleShowDeleteModal = (user) => {
     setShowDeleteModal(!showDeleteModal);
     setDataDelete(user);
+    console.log("item", user)
   };
 
   const todo = async () => {
@@ -84,7 +90,6 @@ const Column = (props) => {
     );
     if (data && data.data && data.data.success === 1) {
       setTodocolum(data.data.data.tasks)
-
 
     }
   };
@@ -134,9 +139,7 @@ const Column = (props) => {
     inProgress();
     Done();
     Cancel();
-
   }, [projectId]);
-
 
 
   return (
@@ -155,6 +158,7 @@ const Column = (props) => {
 
         {todoColum && todoColum.length > 0 &&
           todoColum.map((item, index) => {
+            console.log("item", item)
             return (
               <>
                 <ul className="card-list" key={index} style={{ backgroundColor: "#F5F5F5" }}>
@@ -162,22 +166,37 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        <div
+                        {dataMedia ?
 
-                          type="text"
-                          className="form-control edit-title"
-                          //  onChange={(event) => setTitle(event.target.value)}
-                          //  onBlur={(event) => setTaskTitle(event.target.value)}
-                          onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
-                        </div>
-                        <span className="icon"> <Dropdown>
-                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+                          <div
+                            className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
+                            <img src={`http://localhost:9090/${dataMedia}`} alt="" />
+                          </div>
+                          :
 
-                          <Dropdown.Menu>
+                          <div
 
-                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown></span>
+                            className="form-control title-col"
+
+                            onClick={() => ShowDeatailmodalTask(item)} >   {item.title}
+                          </div>
+                        }
+
+
+                        <span className="icon">
+                          {account._id === LeadId ?
+                            <Dropdown>
+                              < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+
+                              <Dropdown.Menu>
+
+                                <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            :
+                            <div></div>
+                          }
+                        </span>
 
                       </div>
 
@@ -188,8 +207,8 @@ const Column = (props) => {
 
                         </div>
 
+                        {item.assignee ? <span className="user" style={{ color: "#502380" }}>{item.assignee[0]}{item.assignee[item.assignee.length - 1]}</span> : <span className="user" style={{ color: "#A30B2E" }}><FaUser /></span>}
 
-                        <span className="user"><FaUser /></span>
                       </div>
                     </div>
 
@@ -235,14 +254,20 @@ const Column = (props) => {
                           //  onBlur={(event) => setTaskTitle(event.target.value)}
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
                         </div>
-                        <span className="icon"> <Dropdown>
-                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+                        <span className="icon">
+                          {account._id === LeadId ?
+                            <Dropdown>
+                              < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                          <Dropdown.Menu>
+                              <Dropdown.Menu>
 
-                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown></span>
+                                <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            :
+                            <div></div>
+                          }
+                        </span>
 
                       </div>
 
@@ -255,7 +280,7 @@ const Column = (props) => {
                         </div>
 
 
-                        <span className="user"><FaUser /></span>
+                        {item.assignee ? <span className="user" style={{ color: "#502380" }}>{item.assignee[0]}{item.assignee[item.assignee.length - 1]}</span> : <span className="user" style={{ color: "#A30B2E" }}><FaUser /></span>}
                       </div>
                     </div>
                   </li>
@@ -296,15 +321,20 @@ const Column = (props) => {
                           //  onBlur={(event) => setTaskTitle(event.target.value)}
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
                         </div>
-                        <span className="icon"> <Dropdown>
-                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+                        <span className="icon">
+                          {account._id === LeadId ?
+                            <Dropdown>
+                              < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                          <Dropdown.Menu>
+                              <Dropdown.Menu>
 
-                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown></span>
-
+                                <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            :
+                            <div></div>
+                          }
+                        </span>
                       </div>
 
                       <div className="status">
@@ -314,7 +344,7 @@ const Column = (props) => {
                         </div>
 
 
-                        <span className="user"><FaUser /></span>
+                        {item.assignee ? <span className="user" style={{ color: "#502380" }}>{item.assignee[0]}{item.assignee[item.assignee.length - 1]}</span> : <span className="user" style={{ color: "#A30B2E" }}><FaUser /></span>}
                       </div>
                     </div>
                   </li>
@@ -352,14 +382,20 @@ const Column = (props) => {
 
                           onClick={() => ShowDeatailmodalTask(item)} >            {item.title}
                         </div>
-                        <span className="icon"> <Dropdown>
-                          < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
+                        <span className="icon">
+                          {account._id === LeadId ?
+                            <Dropdown>
+                              < Dropdown.Toggle id="dropdown-basic" size="sm" className="icon-dropdown" />
 
-                          <Dropdown.Menu>
+                              <Dropdown.Menu>
 
-                            <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
-                          </Dropdown.Menu>
-                        </Dropdown></span>
+                                <Dropdown.Item onClick={() => handleShowDeleteModal(item)}>Delete</Dropdown.Item>
+                              </Dropdown.Menu>
+                            </Dropdown>
+                            :
+                            <div></div>
+                          }
+                        </span>
 
                       </div>
 
@@ -370,7 +406,7 @@ const Column = (props) => {
                         </div>
 
 
-                        <span className="user"><FaUser /></span>
+                        {item.assignee ? <span className="user" style={{ color: "#502380" }}>{item.assignee[0]}{item.assignee[item.assignee.length - 1]}</span> : <span className="user" style={{ color: "#A30B2E" }}><FaUser /></span>}
                       </div>
                     </div>
                   </li>
@@ -396,10 +432,10 @@ const Column = (props) => {
 
 
       </div >
-      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} member={member} />
-      <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} />
+      <Example show={show} handleShow={handleShow} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} user={user} image={image} setImage={setImage} setDataMedia={setDataMedia} setDataCreatedTask={setDataCreatedTask} dataCreatedTask={dataCreatedTask} dataMedia={dataMedia} setTotalData={setTotalData} />
+      <UpdateCard show={showUpdateModal} handleShow={handleShowUpdateModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} user={user} />
       <DeleteCard show={showDeleteModal} handleShow={handleShowDeleteModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} datadelete={datadelete} />
-      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} member={member} />
+      <ShowDeatailTask show={showDetailModal} handleShow={setShowDetailModal} projectId={projectId} todo={todo} inProgress={inProgress} Done={Done} Cancel={Cancel} dataUpdate={dataUpdate} user={user} member={member} listmem={listmem} />
     </>
   );
 };

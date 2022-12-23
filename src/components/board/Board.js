@@ -23,6 +23,8 @@ import http from "../../http-common"
 import { MdOutlineCancelScheduleSend } from "react-icons/md";
 import CreatMem from "../board/mem/creatmem"
 import { dologout } from "../../redux/action/userAction"
+import Nav from 'react-bootstrap/Nav';
+import Language from "../../components/header/language"
 
 const Board = () => {
   const params = useParams();
@@ -38,13 +40,19 @@ const Board = () => {
   const [showModalMem, setshowModalMem] = useState(false);
   ;
   const [collapsed, setCollapsed] = useState(false);
+  const LeadId = location?.state.LeadId
+  const handleLogin = () => {
+    navigate("/Login");
+  };
 
+  const handleRegister = () => {
+    navigate("/register");
+  };
   const handleCreatNewColumn = () => {
     setIsOpenCreatColumn(!isOpenCreatColumn);
   };
 
 
-  console.log("projectId", projectId)
   const handleShowCreatMem = () => {
     setshowModalMem(!showModalMem)
 
@@ -67,7 +75,6 @@ const Board = () => {
       `http://localhost:9090/api/member/${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
-      console.log("member", member)
       setMember(data.data.data)
     }
   };
@@ -85,46 +92,79 @@ const Board = () => {
           />
         </div>
         <div className="admin-content">
-
-
-          <div className="board" style={{ fontSize: "25px" }}>
-            <FaBars
-              className="admin-header-icon"
-              onClick={() => setCollapsed(!collapsed)}
-            />
-            <div className="search">
-              <nav className="navbar  ">
-                <div className="container-fluid" >
-                  <form className=" col-4" >
-                    <Form.Control
-                      className="form-control me-5"
-                      type="search"
-                      placeholder="Search"
-                      aria-label="Search"
-                      as="textarea"
-                      rows="1"
-                      value={search}
-                      onChange={(event) => setSearch(event.target.value)}
-                    />
-
-                  </form>
-                </div>
-              </nav >
-            </div>
-            <div className="ListGroup">
-              <ListGroup
-                show={isOpenCreatColumn}
-                setShow={setIsOpenCreatColumn}
-                handle={handleCreatNewColumn}
-                search={search}
+          <div className="container container-workspace">
+            <div className="container-header">
+              <FaBars
+                className="admin-header-icon"
+                onClick={() => setCollapsed(!collapsed)}
               />
-            </div>
-          </div>
-          <CreatMem show={showModalMem} handleShow={handleShowCreatMem} />
+              <div className="container-header_right"> <Nav>
 
+                {islogin === false
+                  ? (
+                    <>
+                      <button className="btn-login" onClick={() => handleLogin()}>
+                        {" "}
+                        Log in
+                      </button>
+                      <button className="btn-Signup" onClick={() => handleRegister()}>
+                        {" "}
+                        Sign up
+                      </button>
+                    </>
+                  ) : (
+                    <NavDropdown
+                      title={`hi , ${account.username}`}
+                      id="basic-nav-dropdown"
+                    >
+
+                      <NavDropdown.Item onClick={() => handleLogout()}>Log Out</NavDropdown.Item>
+                    </NavDropdown>
+
+                  )}
+                <Language />
+
+              </Nav></div>
+            </div>
+
+            <div className="board" style={{ fontSize: "25px" }}>
+
+              <div className="search">
+                <nav className="navbar  ">
+                  <div className="container-fluid" >
+                    <form className=" col-4" >
+                      <Form.Control
+                        className="form-control me-5"
+                        type="search"
+                        placeholder="Search"
+                        aria-label="Search"
+                        as="textarea"
+                        rows="1"
+                        value={search}
+                        onChange={(event) => setSearch(event.target.value)}
+                      />
+
+                    </form>
+                  </div>
+                </nav >
+              </div>
+              <div className="ListGroup">
+                <ListGroup
+                  show={isOpenCreatColumn}
+                  setShow={setIsOpenCreatColumn}
+                  handle={handleCreatNewColumn}
+                  search={search}
+                  LeadId={LeadId}
+                />
+              </div>
+            </div>
+            <CreatMem show={showModalMem} handleShow={handleShowCreatMem} />
+
+          </div>
         </div>
       </div>
     </div>
+
 
   );
 };

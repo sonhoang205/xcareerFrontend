@@ -68,49 +68,41 @@ const UpdateCard = (props) => {
         <>
             <Modal show={show} onHide={handleShow} size="sm"
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>  changed the Status</Modal.Title>
-                </Modal.Header>
+
                 <Modal.Body>
                     <form className="row g-3">
-                      
+
+                        <fieldset class="border rounded-3 p-3">
+                            <legend class="float-none w-auto px-3">change the Status</legend>
 
 
+                            <div className="col-md-12">
+                                <label for="inputPassword4" className="form-label">
+                                    status
+                                </label>
 
-                        <div className="col-md-12">
-                            <label for="inputPassword4" className="form-label">
-                                status
-                            </label>
+                                <select
+                                    id="inputState"
+                                    className="form-select"
+                                    value={status}
+                                    onChange={(event) => setstatus(event.target.value)}
+                                >
+                                    <option>To Do</option>
+                                    <option>In Progress</option>
+                                    <option>Done</option>
+                                    <option>Cancel</option>
 
-                            <select
-                                id="inputState"
-                                className="form-select"
-                                value={status}
-                                onChange={(event) => setstatus(event.target.value)}
-                            >
-                                <option>To Do</option>
-                                <option>In Progress</option>
-                                <option>Done</option>
-                                <option>Cancel</option>
+                                </select>
 
-                            </select>
-                        
-                        </div>
+                            </div>
+                        </fieldset>
                         <Button variant="primary" onClick={handleUpdateCard}>
-                        Save
-                    </Button>
+                            Save
+                        </Button>
                         <div className="col-md-12"></div>
                     </form>
-                   
+
                 </Modal.Body>
-                {/* <Modal.Footer>
-                    <Button variant="secondary" onClick={handleShow}>
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleUpdateCard}>
-                        Save
-                    </Button>
-                </Modal.Footer> */}
             </Modal>
         </>
     );

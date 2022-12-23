@@ -7,6 +7,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Type } from "react-bootstrap-icons";
 import http from "../../../http-common";
+import { useTranslation, Trans } from 'react-i18next';
 
 function Example(props) {
   const { show, handleShow, dataParam } = props;
@@ -15,6 +16,7 @@ function Example(props) {
   const islogin = useSelector((state) => state.user.islogin);
   const account = useSelector((state) => state.user.account);
   const [name, setName] = useState("");
+  const { t } = useTranslation();
 
   const [type, setType] = useState("Choose");
 
@@ -53,13 +55,15 @@ function Example(props) {
     <>
       <Modal show={show} onHide={handleShow} size="l">
         <Modal.Header closeButton>
-          <Modal.Title>New Project</Modal.Title>
+          <Modal.Title>
+            {t('createProject.Fifth')}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <form className="row g-3">
             <div className="col-md-12">
               <label for="inputEmail4" className="form-label">
-                Name
+                {t('createProject.First')}
               </label>
               <input
                 type="email"
@@ -72,7 +76,7 @@ function Example(props) {
 
             <div className="col-md-12">
               <label for="inputPassword4" className="form-label">
-                Type
+                {t('createProject.Second')}
               </label>
 
               <select
@@ -82,8 +86,8 @@ function Example(props) {
                 onChange={(event) => setType(event.target.value)}
               >
                 <option>Choose</option>
-                <option>Kanban software development</option>
-                <option>Basic software development</option>
+                <option>Kanban software </option>
+                <option>Basic software </option>
                 <option>Task management</option>
                 <option>Project management</option>
                 <option>Process management</option>
@@ -95,10 +99,10 @@ function Example(props) {
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleShow}>
-            Close
+            {t('createProject.Third')}
           </Button>
           <Button variant="primary" onClick={handleCreatProject}>
-            Save Changes
+            {t('createProject.Fourth')}
           </Button>
         </Modal.Footer>
       </Modal>

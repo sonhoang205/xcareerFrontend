@@ -3,6 +3,9 @@
     min-height: 100vh;
     display: flex;
     justify-content: center;
+
+
+
     .form {
         width: 460px;
         min-height: 100px;
@@ -13,9 +16,11 @@
         margin: 24px;
         align-self: center;
         box-shadow: 0 2px 5px 0 rgba(51, 62, 73, 0.1);
+
         .heading {
             font-size: 2rem;
         }
+
         .desc {
             text-align: center;
             color: #636d77;
@@ -25,19 +30,23 @@
             margin-top: 16px;
             font-weight: 300;
         }
+
         .form-group {
             display: flex;
             margin-bottom: 16px;
             flex-direction: column;
+
             &:invalid {
                 &.form-control {
                     border-color: #f33a58;
                 }
+
                 &.form-message {
                     color: #f33a58;
                 }
             }
         }
+
         .form-label {
             text-align: left;
             font-weight: 700;
@@ -45,12 +54,14 @@
             line-height: 1.8rem;
             font-size: 1.4rem;
         }
+
         .form-message {
             text-align: left;
             font-size: 1.2rem;
             line-height: 1.6rem;
             padding: 4px 0 0;
         }
+
         .form-control {
             height: 40px;
             padding: 8px 12px;
@@ -58,10 +69,12 @@
             border-radius: 3px;
             outline: none;
             font-size: 1.4rem;
+
             &:hover {
                 border-color: #1dbfaf;
             }
         }
+
         .submit {
             outline: none;
             // background-color: #1dbfaf;
@@ -74,21 +87,25 @@
             font-size: 14px;
             border-radius: 8px;
             cursor: pointer;
+
             &:disabled {
                 background-color: #636d77;
                 color: #f1f1f1;
                 cursor: no-drop;
             }
+
             .loaderIcon {
                 margin-right: 7px;
                 top: 2px;
                 animation: spin 1s infinite linear;
                 font-size: 20px;
             }
+
             @keyframes spin {
                 from {
                     transform: scale(1) rotate(0deg);
                 }
+
                 to {
                     transform: scale(1) rotate(360deg);
                 }

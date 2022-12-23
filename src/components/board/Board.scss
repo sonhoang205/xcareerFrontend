@@ -1,34 +1,14 @@
 .project-container {
-    height: 93vh;
+    height: 100vh;
     display: flex;
     width: 100%;
     overflow: hidden;
     gap: 10px;
 
-    .info-container {
-        width: 400px;
-        height: 100vh;
 
-        .button-back {
-            margin: 90px 40px;
-            font-size: 25px;
-            background-color: #B8BEC3;
-            color: black;
-            font-weight: 800;
-            box-shadow: 5px 10px 8px #B8BEC3;
-            border-radius: 10px;
-            cursor: pointer;
-            border: 1px solid black;
-
-
-        }
-
-    }
 
     .admin-content {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
+
 
         .admin-header-icon {
             height: 20px;

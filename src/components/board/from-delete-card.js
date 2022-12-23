@@ -14,9 +14,7 @@ const DeleteCard = (props) => {
             `http://localhost:9090/api/task/${datadelete._id} `
         );
         if (res && res.data.success === 1) {
-            console.log("datadelete", datadelete);
 
-            console.log("res", res);
             toast.success("delete  card success");
             handleShow();
             await todo();

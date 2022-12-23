@@ -1,13 +1,25 @@
+// import { useEffect } from "react";
+// import { useSelector } from "react-redux";
+// import { Router, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-const PrivateRouter = (props) => {
-  //   console.log(props);
+import { Navigate } from "react-router-dom";
+const PrivateRoute = (props) => {
+  console.log("check props:", props)
   const islogin = useSelector((state) => state.user.islogin);
-  const navigate = useNavigate();
+  const account = useSelector((state) => state.user.account);
+
+
   if (!islogin) {
-    navigate("/login");
+    return <Navigate to="/login"></Navigate >
   }
-  return <div>{props.children}</div>;
+  return (
+    <div>
+      {props.children}
+
+    </div>
+  )
+
+
 };
 
-export default PrivateRouter;
+export default PrivateRoute;

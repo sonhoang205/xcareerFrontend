@@ -1,5 +1,4 @@
 import http from "../../http-common"
-
 const renderAllWorkSpace = () => {
     return http.get("workspace/");
 }
@@ -41,8 +40,8 @@ const renderWorkspace = (id) => {
 }
 
 
-const listUser = (id) => {
-    return http.get("http://localhost:9090/api/auth/seeusers")
+const listUser = (offset, limit) => {
+    return http.get(`http://localhost:9090/api/auth/seeusers?offset=${offset}&limit=${limit}`)
 }
 
 
@@ -65,4 +64,20 @@ const renderAllMemInProject = (id) => {
     );
 
 }
-export { renderAllWorkSpace, creatNewWorkSpace, DeleteWorkSpace, dataAssign, renderWorkspace, listUser, creatMem, renderAllMemInProject }
+
+const getMemProject = (id) => {
+    return http.get(
+        `http://localhost:9090/api/member/userId/${id}`
+    );
+}
+
+
+const kickUser = (projectId, userId) => {
+
+    return http.delete(
+        `http://localhost:9090/api/member/kick?projectId${projectId}&userId${userId}`,
+
+    );
+}
+
+export { renderAllWorkSpace, creatNewWorkSpace, DeleteWorkSpace, dataAssign, renderWorkspace, listUser, creatMem, renderAllMemInProject, kickUser }

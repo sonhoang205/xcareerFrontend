@@ -1,7 +1,10 @@
 import video from "../../assets/video-1920.mp4";
 import videoSecond from "../../assets/inline-form-2.mp4";
+import { useTranslation, Trans } from 'react-i18next';
 
 const Homepage = (props) => {
+  const { t } = useTranslation();
+
   return (
     // autoplay muted loop
     <>
@@ -11,19 +14,21 @@ const Homepage = (props) => {
         </video>
         <div className="homepage-cotent">
           <div className="first-tittle">
-            {" "}
-            The project management tool teams actually* want to use
+            {t('homepage.firstTittle')}
+
           </div>
           <div className="second-tittle">
-            Let my app keep your tasks, projects, and due dates together, so
-            your team can focus on the substance of doing.
+            {t('homepage.secondTittle')}
+
           </div>
           <div className="third-tittle">
-            <button>Sign up -it's free</button>
+
+            <button> {t('homepage.thirdTittle.button')}
+            </button>
           </div>
           <div className="fourth-tittle">
-            <div>No credit card required</div>
-            <div> No time linit on Free plan</div>
+            <div>{t('homepage.fourthTittle.textOne')}</div>
+            <div> {t('homepage.fourthTittle.textTwo')}</div>
           </div>
         </div>
       </div>

@@ -4,17 +4,23 @@ import Modal from 'react-bootstrap/Modal';
 import http from "../../http-common";
 import { toast } from "react-toastify";
 import { useSelector } from "react-redux";
+import axios from "axios";
 
 const Example = (props) => {
-    const { show, handleShow, projectId, todo, inProgress, Done, Cancel ,member} = props;
+    const { show, handleShow, projectId, todo, inProgress, Done, Cancel, user, setImage, image, setDataMedia, setDataCreatedTask, dataCreatedTask, dataMedia, setTotalData } = props;
     const [title, setTitle] = useState("");
     const [description, setdescription] = useState("");
     const [status, setstatus] = useState("To Do");
     const [assignee, setAssignee] = useState("");
     const [reporter, setReporter] = useState("");
-
     const islogin = useSelector((state) => state.user.islogin);
     const account = useSelector((state) => state.user.account);
+
+
+
+
+    console.log("dataMedia", dataMedia)
+
     const handleCreatcard = async () => {
         let dataCreate = {
             status: status,
@@ -24,9 +30,8 @@ const Example = (props) => {
             assignee: assignee,
             reporter: reporter,
         };
-        console.log("dataCreate",);
 
-        let res = await http.post(
+        let Creatcard = await http.post(
             "http://localhost:9090/api/task/create",
             dataCreate
         );
@@ -36,8 +41,11 @@ const Example = (props) => {
             return;
         }
 
-        if (res && res.data.success === 1) {
-            console.log("res", res);
+        if (Creatcard && Creatcard.data.success === 1) {
+            console.log("res", Creatcard.data.data._id);
+            setDataCreatedTask(Creatcard.data.data._id)
+            console.log("DataCreatedTask", dataCreatedTask);
+
             toast.success("create new card success");
             setTitle("");
             setdescription("");
@@ -51,13 +59,57 @@ const Example = (props) => {
 
         }
 
-        if (res && res.data.success === 0) {
-            toast.error(res.data.message);
+        if (Creatcard && Creatcard.data.success === 0) {
+            toast.error(Creatcard.data.message);
             return;
         }
     };
 
 
+
+    const updateFile = async () => {
+        const data = new FormData();
+        data.append('file', image);
+
+
+        let creatFile = await axios({
+            method: 'post',
+            url: 'http://localhost:9090/api/upload/disk',
+            data: data,
+            headers: {
+                'Content-Type': `multipart/form-data;`,
+            },
+        });
+
+
+        if (creatFile && creatFile.data.success === 1) {
+            toast.success("update file success");
+            setDataMedia(creatFile.data.data)
+            console.log("creatFile", creatFile)
+            setImage("")
+        }
+
+
+    }
+    const handleUpdateImage = (event) => {
+        setImage(event.target.files[0])
+        console.log("update", event.target.files[0])
+
+
+    }
+
+    const handleUpdateTaskAfterCreateImage = async () => {
+        // taskId: dataCreatedTask,
+        //     fileName: dataMedia
+
+        let res = await http.put(
+            `http://localhost:9090/api/task/updatefile?taskId=${dataCreatedTask}&fileName=${dataMedia}`
+
+        );
+        if (res && res.data.success === 1) {
+            console.log("resaaa", res)
+        };
+    };
     return (
         <>
             <Modal show={show} onHide={handleShow} size="xl">
@@ -78,7 +130,7 @@ const Example = (props) => {
                                 onChange={(event) => setTitle(event.target.value)}
                             />
                         </div>
-                       
+
                         <div className="col-md-6">
                             <label for="inputEmail4" className="form-label">
                                 description
@@ -91,30 +143,78 @@ const Example = (props) => {
                                 onChange={(event) => setdescription(event.target.value)}
                             />
                         </div>
-                        <div className="col-md-6">
+                        <div className="col-md-12">
                             <label for="inputEmail4" className="form-label">
-                                assignee
+                                File
                             </label>
                             <input
-                                type="text"
-                                className="form-control"
-                                id="inputEmail4"
+                                id="label-up"
+                                type="file"
+                                className='form-control'
+                                onChange={(event) => handleUpdateImage(event)}
+
+                            />
+                        </div>
+
+                        {/* <div className="col-md-6">
+                            <label for="inputEmail4" className="form-label">
+                                image
+                            </label>
+                            <input
+                                id="label-up"
+                                type="file"
+                                name="file"
+                                onChange={(event) => handleSaveImage(event)}
+                            />
+                        </div> */}
+
+                        <div className="col-md-6">
+                            <label for="inputPassword4" className="form-label">
+                                assignee
+                            </label>
+
+                            <select
+                                // id="inputState"
+                                className="form-select"
                                 value={assignee}
                                 onChange={(event) => setAssignee(event.target.value)}
-                            />
+
+
+                            >
+                                <option>
+                                    ...
+                                </option>
+                                {user && user.length > 0 &&
+                                    user.map((item, index) => {
+                                        return (
+                                            <>
+
+                                                <option>{item.username}</option></>
+
+
+                                        )
+                                    })
+                                }
+
+                            </select>
                         </div>
 
                         <div className="col-md-6">
                             <label for="inputEmail4" className="form-label">
                                 reporter
                             </label>
-                            <input
+                            <select
                                 className="form-control"
                                 id="inputEmail4"
-                                value={account.username}
+                                value={reporter}
                                 onChange={(event) => setReporter(event.target.value)}
-                                disabled
-                            />
+
+                            >
+
+                                <option>{account.username}</option>
+
+                            </select>
+
                         </div>
 
                         <div className="col-md-12">
@@ -142,9 +242,12 @@ const Example = (props) => {
                     <Button variant="secondary" onClick={handleShow}>
                         Close
                     </Button>
-                    <Button variant="primary" onClick={handleCreatcard}>
+                    <Button variant="primary" onClick={() => { handleCreatcard(); updateFile(); handleUpdateTaskAfterCreateImage() }}>
                         Save
                     </Button>
+                    {/* <Button variant="primary" onClick={updateFile}>
+                        Save image
+                    </Button> */}
                 </Modal.Footer>
             </Modal>
         </>

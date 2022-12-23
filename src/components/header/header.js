@@ -8,8 +8,12 @@ import Example from "../header/profile-modal";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { dologout } from "../../redux/action/userAction"
+import Language from "./language"
+import { useTranslation, Trans } from 'react-i18next';
 
 const Header = () => {
+  const { t } = useTranslation();
+
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -52,29 +56,34 @@ const Header = () => {
           <Nav className="me-auto">
             <NavLink to="/" className="nav-link" >
               {" "}
-              Home
+              {t('header.firstTittle')}
             </NavLink>
             <NavLink to="/Workspace" className="nav-link" >
-              Workspace{" "}
+              {t('header.secondTittle')}
             </NavLink>
             {/* <NavLink to="/Backlog" className="nav-link">
               Backlog
             </NavLink> */}
             <NavLink to="/listuser" className="nav-link" >
-              List User
+              {t('header.thirdTittle')}
             </NavLink>
+            {/* <NavLink to="/DashBoard" className="nav-link" >
+              DashBoard
+            </NavLink> */}
           </Nav>
+
           <Nav>
+
             {islogin === false
               ? (
                 <>
                   <button className="btn-login" onClick={() => handleLogin()}>
                     {" "}
-                    Log in
+                    {t('header.fourthTittle.textOne')}
                   </button>
                   <button className="btn-Signup" onClick={() => handleRegister()}>
                     {" "}
-                    Sign up
+                    {t('header.fourthTittle.textTwo')}
                   </button>
                 </>
               ) : (
@@ -83,11 +92,16 @@ const Header = () => {
                   id="basic-nav-dropdown"
                 >
                   <NavDropdown.Item onClick={() => handleShowProfile(account)}>
-                    Profile
+                    {t('header.fourthTittle.textThree')}
                   </NavDropdown.Item>
-                  <NavDropdown.Item onClick={() => handleLogout()}>Log Out</NavDropdown.Item>
+                  <NavDropdown.Item onClick={() => handleLogout()}>
+                    {t('header.fourthTittle.textFor')}
+                  </NavDropdown.Item>
                 </NavDropdown>
+
               )}
+            <Language />
+
           </Nav>
         </Navbar.Collapse>
       </Container>

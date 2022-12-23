@@ -26,12 +26,10 @@ const CreatMem = (props) => {
   const [checkstatusmem, setCheckstatusmem] = useState(false);
 
 
-  console.log("user", user)
 
 
   const handleCreatmem = async (item) => {
     setUserdata(item._id)
-    console.log("userdata", userdata)
 
 
     let dataCreate = {
@@ -45,7 +43,6 @@ const CreatMem = (props) => {
     );
 
     if (res && res.data.success === 1) {
-      console.log("res", res)
       toast.success("Create mem success");
       setCheckstatusmem(true)
       abc()

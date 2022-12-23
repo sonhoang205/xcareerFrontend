@@ -7,6 +7,8 @@ import { useDispatch } from "react-redux";
 import { ImSpinner3 } from "react-icons/im";
 import NProgress from "nprogress";
 import axios from "axios";
+import Language from "../header/language"
+
 NProgress.start();
 NProgress.done();
 const Login = (props) => {
@@ -16,12 +18,12 @@ const Login = (props) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
 
-const onKeyDown =(event)=>{
-if(event && event.key === "Enter"){
-  handleLogin()
-}
+  const onKeyDown = (event) => {
+    if (event && event.key === "Enter") {
+      handleLogin()
+    }
 
-}
+  }
 
   const handleClose = () => {
     setName("");
@@ -44,7 +46,7 @@ if(event && event.key === "Enter"){
     });
     // console.log("res ", res);
     if (res && res.data.success === 1) {
-      console.log("res",res)
+      console.log("res", res)
       //set bang localstorage
       dispatch({
         type: "FETCH_USER_LOGIN_SUCCES",
@@ -67,6 +69,7 @@ if(event && event.key === "Enter"){
 
   return (
     <div className="main">
+
       <form className="form" id="form-1">
         <h3 className="heading">you're welcome</h3>
         <p className="desc">login and enjoy ❤️ </p>
@@ -127,6 +130,7 @@ if(event && event.key === "Enter"){
           </button>
         </div>
       </form>
+
     </div>
   );
 };

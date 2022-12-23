@@ -19,7 +19,7 @@ const Admin = () => {
   return (
     <div className="admin-container">
       <div className="admin-sidebar">
-        <Sidebar collapsed={collapsed} 
+        <Sidebar collapsed={collapsed}
         />
       </div>
       <div className="admin-content">
@@ -27,26 +27,28 @@ const Admin = () => {
           className="admin-header-icon"
           onClick={() => setCollapsed(!collapsed)}
         />
-        <div className="admin-main">
-          <div className="title">
-            {" "}
-            <div>Projects/Reactjs/Project manage </div>
-            <span>
-              <FaUser className="icon" />
-              <Link to="/login">Login</Link>{" "}
-            </span>
-          </div>
-          <div className="name"> Project backlog</div>
-          <div className="heade-up">
-            <h2> Your work</h2>
-            <button className="btn btn-success" onClick={handleShow}>
-              <AiOutlinePlusCircle /> create New Project
-            </button>
-          </div>
-          <TableProject />
+      </div>
+
+      <div className="admin-main">
+        <div className="title">
+          {" "}
+          <div>Projects/Reactjs/Project manage </div>
+          <span>
+            <FaUser className="icon" />
+            <Link to="/login">Login</Link>{" "}
+          </span>
         </div>
+        <div className="name"> Project backlog</div>
+        <div className="heade-up">
+          <h2> Your work</h2>
+          <button className="btn btn-success" onClick={handleShow}>
+            <AiOutlinePlusCircle /> create New Project
+          </button>
+        </div>
+        <TableProject />
       </div>
     </div>
+
   );
 };
 
