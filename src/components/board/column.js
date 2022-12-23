@@ -65,7 +65,7 @@ const Column = (props) => {
   const [totalData, setTotalData] = useState("")
 
 
-  console.log(taskAfterUpdate.fileName)
+  console.log("dataMedia:", dataMedia)
 
   const ShowDeatailmodalTask = (user) => {
     setShowDetailModal(!showDetailModal);
@@ -113,7 +113,7 @@ const Column = (props) => {
     const status = "Done"
 
     let data = await http.get(
-      `https://xcareer1backend.onrender.com/task?status=${status}&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/api/task?status=${status}&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setDoneColumn(data.data.data.tasks)
@@ -125,7 +125,7 @@ const Column = (props) => {
   const Cancel = async () => {
 
     let data = await http.get(
-      `https://xcareer1backend.onrender.com/task?status=Cancel&projectId=${projectId}`
+      `https://xcareer1backend.onrender.com/api/task?status=Cancel&projectId=${projectId}`
     );
     if (data && data.data && data.data.success === 1) {
       setCancelColumn(data.data.data.tasks)
@@ -166,6 +166,7 @@ const Column = (props) => {
 
 
           ).map((item, index) => {
+            <img src={`http://localhost:9090/${item.fileName}`} alt="" />
 
             return (
               <>
@@ -174,10 +175,10 @@ const Column = (props) => {
                   <li>
                     <div className="card-item_header"  >
                       <div className="title">
-                        {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id && taskAfterUpdate.status === item.status ?
+                        {taskAfterUpdate.fileName ?
                           < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                            <img src={`http://localhost:9090/${item.fileName}`} alt="" />
                           </div>
                           :
                           < div
@@ -259,7 +260,7 @@ const Column = (props) => {
                         {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id && taskAfterUpdate._id === item._id ?
                           < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                            <img src={`https://xcareer1backend.onrender.com/${item.fileName}`} alt="" />
                           </div>
                           :
                           < div
@@ -336,7 +337,7 @@ const Column = (props) => {
                         {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id ?
                           < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                            <img src={`https://xcareer1backend.onrender.com/${item.fileName}`} alt="" />
                           </div>
                           :
                           < div
@@ -408,7 +409,7 @@ const Column = (props) => {
                         {taskAfterUpdate.fileName && taskAfterUpdate._id === item._id ?
                           < div
                             className="edit-title" onClick={() => ShowDeatailmodalTask(item)}>
-                            <img src={`http://localhost:9090/${taskAfterUpdate.fileName}`} alt="" />
+                            <img src={`https://xcareer1backend.onrender.com/${item.fileName}`} alt="" />
                           </div>
                           :
                           < div

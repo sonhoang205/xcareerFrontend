@@ -46,7 +46,7 @@ const ShowDeatailTask = (props) => {
 
   const comments = async () => {
     let data = await http.get(
-      `http://localhost:9090/api/comment?taskId=${id}`
+      `https://xcareer1backend.onrender.com/api/comment?taskId=${id}`
     );
     if (data && data.data && data.data.success === 1) {
       setComment(data.data.data.comments)
@@ -101,7 +101,7 @@ const ShowDeatailTask = (props) => {
     };
 
     let res = await http.put(
-      `http://localhost:9090/api/task/updatetask/${id}`,
+      `https://xcareer1backend.onrender.com/api/task/updatetask/${id}`,
       dataupdate
     );
 
@@ -170,7 +170,7 @@ const ShowDeatailTask = (props) => {
 
     let creatFile = await axios({
       method: 'post',
-      url: 'http://localhost:9090/api/upload/disk',
+      url: 'https://xcareer1backend.onrender.com/api/upload/disk',
       data: data,
       headers: {
         'Content-Type': `multipart/form-data;`,
@@ -216,7 +216,7 @@ const ShowDeatailTask = (props) => {
     console.log("commentCreate", commentCreate);
 
     let res = await http.post(
-      `http://localhost:9090/api/comment/create`,
+      `https://xcareer1backend.onrender.com/api/comment/create`,
       commentCreate
     );
     if (res && res.data.success === 1) {
@@ -233,7 +233,7 @@ const ShowDeatailTask = (props) => {
     console.log("commentId", commentId)
 
     let res = await http.delete(
-      `http://localhost:9090/api/comment/${commentId}`,
+      `https://xcareer1backend.onrender.com/api/comment/${commentId}`,
     );
     if (res && res.data.success === 1) {
 
