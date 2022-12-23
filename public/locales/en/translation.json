@@ -81,5 +81,14 @@
     },
     "projectList": {
         "First": "Type"
+    },
+    "login": {
+        "First": "you're welcome",
+        "Second": "login and enjoy ❤️",
+        "Third": "Username",
+        "Fourth": " PassWord",
+        "Fifth": "Don't you have account yet ??",
+        "Sixth": "Sign up now",
+        "serverth": " Back to HomePage"
     }
 }

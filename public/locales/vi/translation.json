@@ -81,5 +81,14 @@
     },
     "projectList": {
         "First": "Kiểu"
+    },
+    "login": {
+        "First": "Chào mừng bạn",
+        "Second": "trải nghiệm và cảm nhận ❤️",
+        "Third": "Tên người dùng",
+        "Fourth": " Mật Khẩu",
+        "Fifth": "Bạn đã có tài khoản chưa ??",
+        "Sixth": "Đăng ký ngay",
+        "serverth": " Trở về trang chủ"
     }
 }

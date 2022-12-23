@@ -8,10 +8,13 @@ import { ImSpinner3 } from "react-icons/im";
 import NProgress from "nprogress";
 import axios from "axios";
 import Language from "../header/language"
+import { useTranslation, Trans } from 'react-i18next';
 
 NProgress.start();
 NProgress.done();
 const Login = (props) => {
+  const { t } = useTranslation();
+
   const [username, setName] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -71,8 +74,11 @@ const Login = (props) => {
     <div className="main">
 
       <form className="form" id="form-1">
-        <h3 className="heading">you're welcome</h3>
-        <p className="desc">login and enjoy ❤️ </p>
+        <h3 className="heading">{t('login.First')}
+        </h3>
+        {t('Details.Second')}
+
+        <p className="desc">{t('login.First')} </p>
 
         <div className="spacer"></div>
 

@@ -49,7 +49,7 @@ const Header = () => {
       <Container>
         <NavLink to="/" className="navbar-brand">
           {" "}
-          Bootstrap
+
         </NavLink>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
